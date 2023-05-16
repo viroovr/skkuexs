@@ -1,0 +1,104 @@
+/* Apply a global box-sizing value to all elements */
+* {
+	box-sizing: border-box;
+  }
+  
+  /* Set default margin and padding to zero for all elements */
+  body, html {
+  margin: 0;
+  padding: 0;
+  }
+  
+  /* Apply default font styles and set the font family */
+  body {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  background-color: #fff;
+  }
+  
+  /* Define the styles for the main container */
+  .whole {
+	background-color: #fff;
+	width: 100%;
+	height: 100%; 
+	padding: 4rem 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position:absolute;
+  }
+	
+  /* Define the styles for the first text element */
+  .mainword {
+  color: #000;
+  width: 100%;
+  max-width: 520px;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  }
+  
+  /* Define the styles for the second text element */
+  .skkuexs {
+  color: #217e12;
+  width: 100%;
+  /* max-width: 190px; */
+  font-size: 4rem;
+  text-align: center;
+  font-weight : 700;
+  letter-spacing: -0.04em;
+  margin-bottom: 3rem;
+  }
+  
+  /* Define the styles for the container that holds the login and signup buttons */
+  .boxes {
+  width: 100%;
+  max-width: 563px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  }
+  
+  /* Define the styles for the login and signup button containers */
+  .e2_2459, .e1_27 {
+  width: 50%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+  }
+  
+  /* Define the styles for the login and signup button backgrounds */
+  .logbox, .regbox {
+  background-color: #527e0a;
+  width: 100%;
+  max-width: 260px;
+  height: 70px; /* Increased height to prevent text overflow */
+  position: relative;
+  margin-bottom: 0.5rem;
+  text-align : center;
+  /* align-items : center; */
+  line-height : 70px;
+  cursor: pointer;
+  }
+  
+  /* Define the styles for the login and signup button text */
+  .login, .register {
+  color: #fff;
+  width: 100%;
+  max-width: 260px;
+  font-size: 1.75rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+  padding: 1.5rem 0;
+  cursor: pointer;
+  }

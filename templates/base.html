@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- skkuexs CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <!-- Jquery CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- skku CSS -->
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <title>Hello, skkuexs!</title>
+</head>
+<body>
+<!-- 네비게이션바 -->
+{% include "navbar.html" %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+{% block signcontent %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+<!-- Jquery JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<!-- 자바스크립트 Start -->
+{% block script %}
+{% endblock %}
+<!-- 자바스크립트 End -->
+</body>
+</html>

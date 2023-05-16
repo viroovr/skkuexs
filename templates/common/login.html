@@ -1,0 +1,59 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter%3A500%2C700"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro%3A500%2C700"/>
+    <link rel="stylesheet" href="{% static 'login.css' %}"/>
+    <script>
+        document.addEventListener("DOMContentLoaded",function() {
+            var checkbox_box = document.getElementById("checkbox_box");
+            var checkbox_text = document.getElementById("checkbox_text");
+            checkbox_text.onclick = function() {
+                checkbox_box.checked = !checkbox_box.checked
+            }
+        })
+    </script>
+</head>
+<body>
+    <form method="post" action="{% url 'common:login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">  <!-- 로그인 성공후 이동되는 URL -->
+        {% include "form_errors.html" %}
+        <div class="login-GVc">
+            <div class="skkuexs-x7Y">SKKUEXS</div>
+            <div class="item--pvS">소셜계정으로 로그인</div>
+            <div class="group-4-uwt">
+                <div class="group-3-RQS"><img class="image-6-x9U" src="{% static 'logo/google.png' %}"/></div>
+                <a href="{% provider_login_url 'kakao' method='oauth2' %}">
+                    <img class="image-7-3gi" src="{% static 'logo/kakao.png' %}"/>
+                </a>
+                <img class="btng-1-AmL" src="{% static 'logo/naver.png' %}"/>
+            </div>
+            <div class="group-5-UX8">
+                <div class="line-1-QQn"></div>
+                <div class="group-2-jT4">또는</div>
+            </div>
+            <input class="component-3-C5k" type="text" placeholder="아이디" name="username" id="username" value="{{ form.username.value|default_if_none:'' }}"/>
+            <input class="component-4-eiS" type="password" placeholder="비밀번호" name="password" id="password" value="{{ form.password.value|default_if_none:'' }}"/>
+            <button class="component-1-WEr" type="submit">로그인</button>
+            <div class="group-50-bGJ">
+                <div class="group-51-iLv">
+                    <input type="checkbox" class="rectangle-3-G7Y" id="checkbox_box"></input>
+                    <div class="item--nLn" id="checkbox_text">로그인 유지</div>
+                </div>
+                <a class="item--gBG" href="{% url 'password_reset' %}" style="text-decoration: none">아이디/비밀번호 찾기</a>
+            </div>
+            <div class="skkuexs--NJz">
+                <span class="skkuexs--NJz-sub-0">SKKUEXS 에 처음이신가요?</span>
+                <a class="skkuexs--NJz-sub-1" href="{% url 'common:signup' %}" style="text-decoration: none">회원가입</a>
+            </div>
+        </div>
+    </form>
+</body>
