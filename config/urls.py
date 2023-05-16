@@ -10,7 +10,8 @@ urlpatterns = [
     path('common/', include('common.urls')),
     path('common/', include('allauth.urls')),
     path('common/', include('dj_rest_auth.urls')),
-    path('', base_views.index, name='index'),  # '/' 에 해당되는 path
+    path('forums/', include('forums.urls')),
+	path('', base_views.index, name='index'),  # '/' 에 해당되는 path
 
     # common으로 옮기면 오류    
     path('password_reset/', views.UserPasswordResetView.as_view(), name="password_reset"),

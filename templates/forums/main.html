@@ -1,0 +1,105 @@
+{% extends "base_for_forums.html" %}
+{% block content %}
+    <div class=area2>
+      <div class=satisfaction><span class="a2title">만족도</span>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+      </div>
+
+      <div class=introduction><span class="a2title">한줄소개</span>
+        <span class="a2text">Nulla Lorem mollit cupidatat irure. Laborum
+        </span>
+      </div>
+
+    </div>
+
+    <div class=area3>
+      <div class=area3a>
+        <div class=boxtitle>
+          <div class="goodimg"></div>
+          <span class="titleword">이런 점이 좋았어요</span>
+          <span class="sgraytext">(77명 참여)</span>
+
+        </div>
+
+        <ul class=boxlist>
+          <li class=boxchild>
+            <div class="longbar"></div>
+            <div class="middlebar1"></div>
+            <span class="review_text">“학교가 넓어요”</span><span class="number">30</span>
+            <div class="school"></div>
+          </li>
+
+          <li class=boxchild>
+            <div class="longbar"></div>
+            <div class="middlebar2"></div><span class="review_text">“수업이 다양해요”</span><span class="number">21</span>
+            <div class="img2"></div>
+          </li>
+
+          <li class=boxchild>
+            <div class="longbar"></div>
+            <div class="middlebar3"></div><span class="review_text">“날씨가 좋아요”</span><span class="number">15</span>
+            <div class="img3"></div>
+          </li>
+
+          <li class=boxchild>
+            <div class="longbar"></div>
+            <div class="middlebar4"></div><span class="review_text">“여행 다니기 좋아요”</span><span class="number">7</span>
+            <div class="img4"></div>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class=area3b>
+        <div class="wordcloud"><span>Word Cloud</span></div>
+      </div>
+    </div>
+    <div class=area4>
+      <div class="schoolimg" style="background-image:url(/static/images/rectangle_5.png);"></div>
+      <div class="schoolimg" style="background-image:url(/static/images/rectangle_6.png);"></div>
+      <div class="schoolimg" style="background-image:url(/static/images/rectangle_7.png);"></div>
+    </div>
+    <div class=area5>
+
+      <div class=menubox>
+        <div class="menuword">준비과정</div>
+        <div class="menu_text">비자</div>
+        <div class="menu_text">기숙사</div>
+        <div class="menu_text">기타 유의사항</div>
+      </div>
+
+    <div class="midlongline"></div>
+      <div class=menubox>
+        <div class="menuword">학교생활</div>
+        <div class="menu_text">학교생활후기</div>
+        <div class="menu_text">학업</div>
+        <div class="menu_text">학교가는법</div>
+      </div>
+      <div class="midlongline"></div>
+      <div class=menubox>
+        <div class="menuword">커뮤니티</div>
+        <div class="menu_text">게시판</div>
+      </div>
+
+
+
+     
+    </div>
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  
+  $(function() {
+    // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+    // $("#whole").css("background-color","#fff")
+
+    console.log('{{school_name}}')
+  })
+</script>
+{% endblock %}
