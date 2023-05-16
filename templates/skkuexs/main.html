@@ -1,42 +1,19 @@
-{% load static %}
-<html lang="en">
-    <head>
-    <meta charset="utf-8">
-    
-    <title>Index</title>
-    <meta name="description" content="Figma htmlGenerator">
-    <meta name="author" content="htmlGenerator">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-
-    <style>
-        body {background: #E5E5E5; }
-    </style>
-    <script>
-        // document.addEventListener("DOMContentLoaded",function() {
-        //     var login_btn = document.getElementById("logbox")
-        //     function hello() {
-        //         console.log("hello")
-        //     }
-        //     login_btn.onclick = hello;
-        // })    
-    </script>
-
-    </head>
-          
-    <body>
-    <div class=whole><span class="mainword">교환학생 생활을 더 편한하고 즐겁게,</span><span class="skkuexs">SKKUEXS</span>
-        <div class=boxes>
-            <div class=e2_2459>
-                <a class="logbox" href="{% url 'common:login' %}" style="text-decoration: none;"><span class="login">로그인</span></a>
-            </div>
-            <div class=e1_27>
-                <a class="regbox" href="{% url 'common:signup' %}" style="text-decoration: none;"><span class="register">회원가입</span> </a>
-            </div>
-        </div>
-    </div>
-    </body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div class=whole>
+	<span class="mainword">교환학생 생활을 더 편안하고 즐겁게,</span>
+	<span class="skkuexs">SKKUEXS</span>
+	<div class=boxes>
+		<div class=e2_2459>
+			<a class="logbox" href="{% url 'common:login' %}" style="text-decoration: none;">
+				<span class="login">로그인</span>
+			</a>
+		</div>
+		<div class=e1_27>
+			<a class="regbox" href="{% url 'common:signup' %}" style="text-decoration: none;">
+				<span class="register">회원가입</span>
+			</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
