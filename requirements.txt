@@ -1,7 +1,7 @@
 markdown
 django
 django-filter
-django-allauth
+django-allauth==0.51.0
 dj-rest-auth
 djangorestframework
 djangorestframework-simplejwt
