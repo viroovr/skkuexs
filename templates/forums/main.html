@@ -2,11 +2,9 @@
 {% block content %}
     <div class=area2>
       <div class=satisfaction><span class="a2title">만족도</span>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
+        {% for i in "x"|rjust:rank %}
+          <div class="star"></div>
+        {% endfor %}
       </div>
 
       <div class=introduction><span class="a2title">한줄소개</span>
@@ -100,6 +98,7 @@
     // $("#whole").css("background-color","#fff")
 
     console.log('{{school_name}}')
+    console.log('{{rank}}')
   })
 </script>
 {% endblock %}
