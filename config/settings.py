@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-n#y#b&qa_5!6hrjc^2!k@v_dzum!33(980r0_z61s*!qg1ac0w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['43.200.137.150']
 
 ROOT_DIR = os.path.dirname(BASE_DIR)
 
