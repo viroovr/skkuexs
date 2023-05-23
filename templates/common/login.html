@@ -25,11 +25,15 @@
             <div class="skkuexs-x7Y">SKKUEXS</div>
             <div class="item--pvS">소셜계정으로 로그인</div>
             <div class="group-4-uwt">
-                <div class="group-3-RQS"><img class="image-6-x9U" src="{% static 'logo/google.png' %}"/></div>
+                <a href="{% provider_login_url 'google' %}">
+                    <div class="group-3-RQS"><img class="image-6-x9U" src="{% static 'logo/google.png' %}"/></div>
+                </a>
                 <a href="{% provider_login_url 'kakao' method='oauth2' %}">
                     <img class="image-7-3gi" src="{% static 'logo/kakao.png' %}"/>
                 </a>
-                <img class="btng-1-AmL" src="{% static 'logo/naver.png' %}"/>
+                <a href="{% provider_login_url 'naver' method='oauth2' %}">
+                    <img class="btng-1-AmL" src="{% static 'logo/naver.png' %}"/>
+                </a>
             </div>
             <div class="group-5-UX8">
                 <div class="line-1-QQn"></div>
