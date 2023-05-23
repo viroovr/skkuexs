@@ -19,3 +19,58 @@ def main(request, school_name):
     return render(request, 'forums/main.html', context)
 
     # return render(request, 'forums/main.html', {'school_name': school_name})
+
+def community(request, school_name):
+
+    context = {
+        'school_name': school_name,
+        'community_up': [
+            {
+                "title": "파견학교 성적 에프",
+                "content": "성적표에 안올릴 방법은 없나요? ㅠ",
+                "date": "2023.05.23",
+                "recommand": 0,
+                "comment": 4,
+            },
+            {
+                "title": "교환학생 여행",
+                "content": "학기 할 거 다 끝나고 가나요?",
+                "date": "2023.05.19",
+                "recommand": 2,
+                "comment": 3,
+            },
+            {
+                "title": "공용주방",
+                "content": "기숙사 공용주방 어떤가요?",
+                "date": "2023.05.18",
+                "recommand": 0,
+                "comment": 10,
+            }
+            ],
+        'community_down': [
+            
+            {
+                "title": "성적환산",
+                "content": "알파벳으로 어떻게 바꾸셨나요?",
+                "date": "2023.05.18",
+                "recommand": 0,
+                "comment": 2,
+            },
+            {
+                "title": "학점인정",
+                "content": "전공심화도 인정 되나요?",
+                "date": "2023.05.17",
+                "recommand": 0,
+                "comment": 0,
+            },
+            {
+                "title": "!hidden",
+                "content": "다들 출국날짜 언제로 잡으셨나요?",
+                "date": "2023.04.20",
+                "recommand": 7,
+                "comment": 2,
+            }
+            ]
+    }
+
+    return render(request, 'forums/community.html', context)
