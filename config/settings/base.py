@@ -258,5 +258,9 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
+        'skkuexs': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
     }
 }
