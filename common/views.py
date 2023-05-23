@@ -358,3 +358,6 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
         context = super().get_context_data(**kwargs)
         context['login_url'] = resolve_url(settings.LOGIN_URL)
         return context
+
+def page_not_found(request, exception):
+    return render(request, 'common/404.html', {})
