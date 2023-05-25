@@ -221,14 +221,33 @@
     padding-left: 0.2rem;
 }
 
+.course_block{
+
+    height: 100%;
+    width: 100%;
+    padding-top: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.course_header{
+
+        display: flex;
+        justify-content: center;
+        margin-top : 40; 
+
+}
+
 .course_content{
 
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        /* flex-wrap: wrap;
         /* flex-flow: column wrap; */
-        justify-content: space-around;
-        align-content: space-around;
+        /* justify-content: space-around;
+        align-content: space-around;  */
+        padding: 0px 4rem 0px;
+    margin-bottom: 1.375rem;
 
 }
 
@@ -236,8 +255,70 @@
     width: 73.875rem;
     height: 68.875rem;
     margin: auto;
+    margin-top:1.438rem ;
     padding: 0 0 0.938rem;
     border-radius: 21px;
     box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
   }
+
+  .course_item_box{
+        width: 33.438rem;
+        height: 13.563rem;
+        margin: 1rem 1.063rem 0 0;
+        padding: 1.75rem 1.438rem;
+        border-radius: 21px;
+        box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
+        background-color: #fff;
+  }
+
+  .course_item_title{
+
+        width: 12.25rem;
+        height: 1.438rem;
+        flex-grow: 0;
+        margin: 1.244rem 9.75rem 1.25rem 0;
+        font-family: Inter;
+        font-size: 1.75rem;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.56px;
+        text-align: left;
+        color: #000;
+  }
+
+  .course_item_date{
+
+        width: 8.375rem;
+        height: 1.375rem;
+        flex-grow: 0;
+        margin: 1.244rem 0.188rem 1.313rem 9.75rem;
+        font-family: Inter;
+        font-size: 1.125rem;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.72px;
+        text-align: right;
+        color: #868686;
+      }
+
+
+  .course_item_content{
+        width: 30.5rem;
+        height: 5.063rem;
+        flex-grow: 0;
+        margin: 1.25rem 0 0 0.063rem;
+        font-family: Inter;
+        font-size: 1.375rem;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.44px;
+        text-align: left;
+        color: #000;
+      }
