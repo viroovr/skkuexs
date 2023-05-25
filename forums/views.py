@@ -32,6 +32,11 @@ def submain_uni_life(request, school_name):
 
     return render(request, 'forums/submain_uni_life.html',context)
 
+def courses(request, school_name):
+    context = {
+        'school_name': school_name}
+
+    return render(request, 'forums/courses.html',context)
 
 def community(request, school_name):
 
