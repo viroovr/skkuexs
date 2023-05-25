@@ -76,6 +76,14 @@ def courses(request, school_name):
                 "title": "SWE3208",
                 "date": "23년 1학기 수강자",
                 "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
             }
             
             
