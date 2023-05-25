@@ -237,6 +237,11 @@
         margin-top : 40; 
 
 }
+.title_and_date{
+    width : 100%;
+    display: flex;
+    flex-direction: row;
+}
 
 .course_content{
 
@@ -314,12 +319,10 @@
       }
 
 
-  .course_item_content{
+      .course_item_content{
         width: 30.5rem;
         height: 5.063rem;
-        flex-grow: 0;
-        margin: 1.25rem 0 0 0.063rem;
-        font-family: "Noto Sans KR";
+        font-family: 'Noto Sans KR', sans-serif;
         font-size: 1.375rem;
         font-weight: normal;
         font-stretch: normal;
@@ -330,6 +333,9 @@
         color: #000;
       }
 
+      .course_item_rank{
+
+      }
       .preparation_header {
         display: flex;
         justify-content: center;
