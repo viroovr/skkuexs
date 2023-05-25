@@ -13,7 +13,8 @@
 .submain_header {
     display: flex;
     justify-content: center;
-    margin-top : 40; 
+    margin-top : 3rem; 
+    margin-left: 6.875rem;
 }
 .submain_menubox{
         width: 25.688rem;
@@ -221,6 +222,25 @@
     padding-left: 0.2rem;
 }
 
+#bigver{
+    width: 0.25rem;
+	height: 3rem;
+	/* position:absolute; */
+	flex-grow: 0;
+	margin: 1.2rem 2.5rem 0.125rem 2.5rem;
+	/* transform: rotate(180deg); */
+	background-color: #000;
+}
+.course_name{
+    flex-grow: 0;
+  font-family: Inter;
+  font-size: 3rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+  text-align: center;
+  color: #000000;
+  vertical-align: sub;
+}
 .course_block{
 
     height: 100%;
@@ -262,10 +282,10 @@
 
 .content_box_large {
     width: 73.875rem;
-    height: 68.875rem;
+    height: auto;
     margin: auto;
     margin-top:1.438rem ;
-    padding: 4rem 1rem 4rem 1rem;
+    padding: 2rem 1rem 2rem 1rem;
     border-radius: 21px;
     box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
@@ -275,7 +295,7 @@
     
         width: 33.438rem;
         height: 13.563rem;
-        margin: 0.5rem;
+        margin: 0.6rem;
         padding: 1.75rem 1.438rem;
         border-radius: 21px;
         box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
