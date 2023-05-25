@@ -1,0 +1,45 @@
+{% extends "forums/base_for_forums.html" %}
+{% block content %}
+
+
+<div class="community_block">
+   
+    <div class="submain_header">
+      <div class="community_title">준비 과정</div>
+    </div>
+
+  
+
+    <div class="menu_boxes">
+        <div class="submain_menubox">
+            <span class="menubox_title">비자</span>
+            <span class="menubox_content">비자 신청 절차</span>
+            <img class="menubox_icon" src="/static/images/passport.png"/>
+        </div>
+        <div class="submain_menubox">
+            <span class="menubox_title">기숙사</span>
+            <span class="menubox_content">기숙사 종류 및
+                특징</span>
+            <img class="menubox_icon" src="/static/images/dorm.png"/>
+        </div>
+        <div class="submain_menubox">
+            <span class="menubox_title">기타 유의사항</span>
+            <span class="menubox_content">필수 준비물 및 <br> 출국전 유용정보</span>
+            <img class="menubox_icon" src="/static/images/yellow_idea.png"/>
+        </div>
+    </div>
+
+
+  
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  
+    $(function() {
+      // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+      $("#whole").css("background-color","#f5f5f7")
+      $("#whole").css("height","100%")      
+    })
+  </script>
+{% endblock %}

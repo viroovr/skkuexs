@@ -20,6 +20,15 @@ def main(request, school_name):
 
     # return render(request, 'forums/main.html', {'school_name': school_name})
 
+def submain(request, school_name):
+    context = {
+        'school_name': school_name}
+
+    return render(request, 'forums/submain.html',context)
+
+    # return render(request, 'forums/main.html', {'school_name': school_name})
+
+
 def community(request, school_name):
 
     context = {
