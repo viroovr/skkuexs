@@ -56,3 +56,4 @@ class School(models.Model):
 	period = models.CharField(max_length=50, null=True, blank=True)
 	website = models.CharField(max_length=100, null=True, blank=True)
 	impression = models.TextField(null=True, blank=True)
+	rank = models.IntegerField()

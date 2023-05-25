@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Report, School
 
 import requests
 import json
@@ -12,11 +13,12 @@ def main(request, school_name):
     # response = requests.get(url,params=data)
     # context = json.loads(response.text)
 
-    context = {
-        'school_name': school_name,
-        'rank': 4
-    }
-    return render(request, 'forums/main.html', context)
+	school_info = School.objects.filter(school=school_name)[0]
+	context = {
+		'school_name': school_info.school,
+		'rank': school_info.rank
+	}
+	return render(request, 'forums/main.html', context)
 
     # return render(request, 'forums/main.html', {'school_name': school_name})
 
