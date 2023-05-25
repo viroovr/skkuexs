@@ -42,6 +42,59 @@ NAVER_CALLBACK_URI = BASE_URL + 'common/naver/login/callback/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'common/google/login/callback/'
 
 
+def social_login(request, email, access_token, code, domain):
+    try:
+        # 전달받은 이메일로 등록된 유저가 있는지 탐색
+        user = User.objects.get(email=email)
+
+        # FK로 연결되어 있는 socialaccount 테이블에서 해당 이메일의 유저가 있는지 확인
+        social_user = SocialAccount.objects.get(user=user)
+
+        # 있는데 구글계정이 아니어도 에러
+        if social_user.provider != domain:
+            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post(
+            f"{BASE_URL}common/{domain}/login/finish/", data=data)
+        accept_status = accept.status_code
+
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
+
+        accept_json = accept.json()
+        accept_json.pop('user', None)
+
+        user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
+        login(request, user, backend=user.backend)  # 로그인
+        return redirect('index')
+    except User.DoesNotExist:
+
+        # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
+        data = {'access_token': access_token, 'code': code}
+        accept = requests.post(
+            f"{BASE_URL}common/google/login/finish/", data=data)
+        accept_status = accept.status_code
+
+        # 뭔가 중간에 문제가 생기면 에러
+        if accept_status != 200:
+            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
+
+        accept_json = accept.json()
+        accept_json.pop('user', None)
+
+        user = User.objects.get(email=email)
+        user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
+
+        login(request, user, backend=user.backend)  # 로그인
+        return redirect('index')  # TODO 로그인후 이동할 페이지 변경
+    except SocialAccount.DoesNotExist:
+        # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
+        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+
+
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)
@@ -74,14 +127,11 @@ def kakao_callback(request):
     """
     token_req = requests.get(
         f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={rest_api_key}&redirect_uri={redirect_uri}&code={code}")
-    # print(f"token_req : {token_req}")
     token_req_json = token_req.json()
-    # print(f"token_req_json : {token_req_json}")
     error = token_req_json.get("error")
     if error is not None:
         raise JSONDecodeError(error)
     access_token = token_req_json.get("access_token")
-    # print(f"access_token : {access_token}")
     """
     Email Request
     """
@@ -99,42 +149,7 @@ def kakao_callback(request):
     """
     Signup or Signin Request
     """
-    try:
-        user = User.objects.get(email=email)
-        # 기존에 가입된 유저의 Provider가 kakao가 아니면 에러 발생, 맞으면 로그인
-        # 다른 SNS로 가입된 유저
-        social_user = SocialAccount.objects.get(user=user)
-        if social_user is None:
-            return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
-        if social_user.provider != 'kakao':
-            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
-        # 기존에 Google로 가입된 유저
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(
-            f"{BASE_URL}common/kakao/login/finish/", data=data)
-        accept_status = accept.status_code
-        print(f"accept_status : {accept_status}")
-        if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
-        accept_json = accept.json()
-        print(f"\naccept_json1 : {accept_json}")
-        accept_json.pop('user', None)
-        print(f"\naccept_json1 : {accept_json}")
-        return JsonResponse(accept_json)
-    except User.DoesNotExist:
-        # 기존에 가입된 유저가 없으면 새로 가입
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(
-            f"{BASE_URL}common/kakao/login/finish/", data=data)
-        accept_status = accept.status_code
-        if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
-        # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
-        accept_json = accept.json()
-        print(f"\naccept_json2 : {accept_json}")
-        accept_json.pop('user', None)
-        print(f"\naccept_json2 : {accept_json}")
-        return JsonResponse(accept_json)
+    return social_login(request, email, access_token, code, domain="kakao")
 
 
 def google_login(request):
@@ -154,7 +169,6 @@ def google_callback(request):
 
     # 1-1. json으로 변환 & 에러 부분 파싱
     token_req_json = token_req.json()
-    print("token_req_json : ", token_req_json)
     error = token_req_json.get("error")
 
     # 1-2. 에러 발생 시 종료
@@ -184,49 +198,7 @@ def google_callback(request):
     #################################################################
 
     # 3. 전달받은 이메일, access_token, code를 바탕으로 회원가입/로그인
-    try:
-        # 전달받은 이메일로 등록된 유저가 있는지 탐색
-        user = User.objects.get(email=email)
-
-        # FK로 연결되어 있는 socialaccount 테이블에서 해당 이메일의 유저가 있는지 확인
-        social_user = SocialAccount.objects.get(user=user)
-
-        # 있는데 구글계정이 아니어도 에러
-        if social_user.provider != 'google':
-            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
-
-        # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(
-            f"{BASE_URL}common/google/login/finish/", data=data)
-        accept_status = accept.status_code
-
-        # 뭔가 중간에 문제가 생기면 에러
-        if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
-
-        accept_json = accept.json()
-        accept_json.pop('user', None)
-        return JsonResponse(accept_json)
-
-    except User.DoesNotExist:
-        # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(
-            f"{BASE_URL}common/google/login/finish/", data=data)
-        accept_status = accept.status_code
-
-        # 뭔가 중간에 문제가 생기면 에러
-        if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
-
-        accept_json = accept.json()
-        accept_json.pop('user', None)
-        return JsonResponse(accept_json)
-
-    except SocialAccount.DoesNotExist:
-        # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
-        return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
+    return social_login(request, email, access_token, code, domain="google")
 
 
 def naver_login(request):
@@ -270,37 +242,7 @@ def naver_callback(request):
     """
     Signup or Signin Request
     """
-    try:
-        user = User.objects.get(email=email)
-        # 기존에 가입된 유저의 Provider가 kakao가 아니면 에러 발생, 맞으면 로그인
-        # 다른 SNS로 가입된 유저
-        social_user = SocialAccount.objects.get(user=user)
-        if social_user is None:
-            return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
-        if social_user.provider != 'naver':
-            return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
-        # 기존에 Google로 가입된 유저
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(
-            f"{BASE_URL}common/naver/login/finish/", data=data)
-        accept_status = accept.status_code
-        if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
-        accept_json = accept.json()
-        accept_json.pop('user', None)
-        return JsonResponse(accept_json)
-    except User.DoesNotExist:
-        # 기존에 가입된 유저가 없으면 새로 가입
-        data = {'access_token': access_token, 'code': code}
-        accept = requests.post(
-            f"{BASE_URL}common/naver/login/finish/", data=data)
-        accept_status = accept.status_code
-        if accept_status != 200:
-            return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
-        # user의 pk, email, first name, last name과 Access Token, Refresh token 가져옴
-        accept_json = accept.json()
-        accept_json.pop('user', None)
-        return JsonResponse(accept_json)
+    return social_login(request, email, access_token, code, domain="naver")
 
 
 class KakaoLogin(SocialLoginView):
