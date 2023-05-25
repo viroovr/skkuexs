@@ -43,6 +43,7 @@ for key, value in secrets.items():
 INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'skkuexs.apps.SkkuexsConfig',
+    'forums.apps.ForumsConfig',
 
     'allauth',
     'allauth.account',
