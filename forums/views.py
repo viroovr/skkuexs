@@ -24,7 +24,7 @@ def community(request, school_name):
 
     context = {
         'school_name': school_name,
-        'community_up': [
+        'community': [
             {
                 "title": "파견학교 성적 에프",
                 "content": "성적표에 안올릴 방법은 없나요? ㅠ",
@@ -45,10 +45,7 @@ def community(request, school_name):
                 "date": "2023.05.18",
                 "recommand": 0,
                 "comment": 10,
-            }
-            ],
-        'community_down': [
-            
+            },            
             {
                 "title": "성적환산",
                 "content": "알파벳으로 어떻게 바꾸셨나요?",
@@ -65,12 +62,14 @@ def community(request, school_name):
             },
             {
                 "title": "!hidden",
-                "content": "다들 출국날짜 언제로 잡으셨나요?",
-                "date": "2023.04.20",
-                "recommand": 7,
-                "comment": 2,
+                "content": "",
+                "date": "",
+                "recommand": 0,
+                "comment": 0,
             }
             ]
     }
+
+    # 3의 배수가 되게끔 !hidden json을 추가로 넣어줘야 함
 
     return render(request, 'forums/community.html', context)

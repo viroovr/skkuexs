@@ -4,7 +4,7 @@
   <div class="community_header">
     <div class="community_title">게시판</div>
     <div class="community_search_box">
-      <input type="text" class="community_search" placeholder="검색어 입력">
+      <input type="text" class="community_search" placeholder="검색어 입력"/>
       <div class="community_search_icon_box">
         <img class="community_search_icon" src="/static/images/search_icon.png"/>
       </div>
@@ -15,34 +15,10 @@
       정렬 | 최신순
     </div>
   </div>
+  {% for field in community %}
+  {% if forloop.counter|add:2|divisibleby:3 %}
   <div class="community_content">
-    {% for field in community_up %}
-    <div class="community_item_box">
-      <div class="community_item_title">
-        {{field.title}}
-      </div>
-      <div class="community_item_content">
-        {{field.content}}
-      </div>
-      <div class="community_item_below">
-        <div class="community_item_date">
-          {{field.date}}
-        </div>
-        <div class="community_item_below_fill"></div>
-          <img src="/static/images/Facebook Like.png"/>
-          <div class="community_item_below_count">
-            {{field.recommand}}
-          </div>
-          <img src="/static/images/Comments.png"/>
-          <div class="community_item_below_count">
-            {{field.comment}}
-          </div>
-      </div>
-    </div>
-    {% endfor %}
-  </div>
-  <div class="community_content">
-    {% for field in community_down %}
+  {% endif %}
     {% if field.title == "!hidden" %}
     <div class="community_item_box" style="visibility: hidden">
     {% else %}
@@ -59,18 +35,20 @@
           {{field.date}}
         </div>
         <div class="community_item_below_fill"></div>
-          <img src="/static/images/Facebook Like.png"/>
-          <div class="community_item_below_count">
-            {{field.recommand}}
-          </div>
-          <img src="/static/images/Comments.png"/>
-          <div class="community_item_below_count">
+        <img src="/static/images/Facebook Like.png"/>
+        <div class="community_item_below_count">
+          {{field.recommand}}
+        </div>
+        <img src="/static/images/Comments.png"/>
+        <div class="community_item_below_count">
             {{field.comment}}
-          </div>
+        </div>
       </div>
     </div>
-    {% endfor %}
+  {% if forloop.counter|divisibleby:3 %}
   </div>
+  {% endif %}
+  {% endfor %}
 </div>
 {% endblock %}
 {% block script %}
@@ -79,7 +57,8 @@
     $(function() {
       // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
       $("#whole").css("background-color","#f5f5f7")
-      $("#whole").css("height","100%")      
+      $("#whole").css("height","auto")
+      console.log('{{community.1.title}}')      
     })
   </script>
 {% endblock %}
