@@ -115,3 +115,9 @@ def community(request, school_name):
     # 3의 배수가 되게끔 !hidden json을 추가로 넣어줘야 함
 
     return render(request, 'forums/community.html', context)
+
+def visa(request, school_name):
+    context = {
+        'school_name': school_name
+    }
+    return render(request, 'forums/visa.html', context)

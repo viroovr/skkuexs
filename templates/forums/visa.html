@@ -1,0 +1,68 @@
+{% extends "forums/base_for_forums.html" %}
+{% block content %}
+<div class="community_block">
+  <div class="preparation_header">
+    <div class="preparation_filter_box"></div>
+    <div class="preparation_title_box">
+        <div class="preparation_title">비자</div>
+    </div>
+    <div class="preparation_filter_box">준비 과정</div>
+  </div>
+  <div class="preparation_content">
+    <div class="preparation_item_box">
+      <div class="preparation_item_left">
+        <div class="preparation_flag_container">
+            <img class="community_search_icon" src="/static/images/Flag_Korean.png" style="object-fit:contain"/>
+        </div>
+      </div>
+      <div class="preparation_item_right">
+        <div class="preparation_up">
+            <div class="preparation_up_left">
+                <div class="preparation_item_title">
+                    비자 종류
+                </div>
+                <div class="preparation_item_subtitle">
+                    D-4
+                </div>
+            </div>
+            <div class="preparation_up_right">
+                <div class="preparation_item_title">
+                    발급 소요기간
+                </div>
+                <div class="preparation_item_subtitle">
+                    약 2개월
+                </div>
+            </div>
+        </div>
+        <div class="preparation_item_title">
+            비자 신청절차
+        </div>
+        <div class="preparation_down">
+            <div class="preparation_list">
+                1. 비자 온라인 신청서 ABC 작성 (파견교 XYZ 문서 필수)
+            </div>
+            <div class="preparation_list">
+                2. 비자 수수료 납부
+            </div>
+            <div class="preparation_list">
+                3. 비자 인터뷰 예약
+            </div>
+        </div>
+        <div class="preparation_footer">
+            2023.04 Updated
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  
+    $(function() {
+      // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+      $("#whole").css("background-color","#f5f5f7")
+      $("#whole").css("height","auto")     
+    })
+  </script>
+{% endblock %}

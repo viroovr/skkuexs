@@ -64,15 +64,23 @@
     <div class=area5>
 
       <div class=menubox>
-        <div class="menuword">준비과정</div>
-        <div class="menu_text">비자</div>
+        <a href="{% url 'forums:submain' school_name %}" style="text-decoration: none">
+          <div class="menuword">
+              준비과정
+          </div>
+        </a>
+        <a href="{% url 'forums:visa' school_name %}" style="text-decoration: none">
+          <div class="menu_text">비자</div>
+        </a>
         <div class="menu_text">기숙사</div>
         <div class="menu_text">기타 유의사항</div>
       </div>
 
     <div class="midlongline"></div>
       <div class=menubox>
-        <div class="menuword">학교생활</div>
+        <a href="{% url 'forums:submain_uni_life' school_name %}" style="text-decoration: none">
+          <div class="menuword">학교생활</div>
+        </a>
         <div class="menu_text">학교생활후기</div>
         <div class="menu_text">학업</div>
         <div class="menu_text">학교가는법</div>
