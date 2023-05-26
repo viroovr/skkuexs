@@ -40,7 +40,7 @@ BASE_URL = 'http://127.0.0.1:8000/'
 KAKAO_CALLBACK_URI = BASE_URL + 'common/kakao/login/callback/'
 NAVER_CALLBACK_URI = BASE_URL + 'common/naver/login/callback/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'common/google/login/callback/'
-
+from pprint import pprint
 
 def social_login(request, email, access_token, code, domain):
     try:
@@ -75,7 +75,7 @@ def social_login(request, email, access_token, code, domain):
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
         accept = requests.post(
-            f"{BASE_URL}common/google/login/finish/", data=data)
+            f"{BASE_URL}common/{domain}/login/finish/", data=data)
         accept_status = accept.status_code
 
         # 뭔가 중간에 문제가 생기면 에러
@@ -121,6 +121,7 @@ def kakao_login(request):
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
     code = request.GET["code"]
+    
     redirect_uri = KAKAO_CALLBACK_URI
     """
     Access Token Request
@@ -162,6 +163,7 @@ def google_callback(request):
     client_id = getattr(settings, 'SOCIAL_AUTH_GOOGLE_CLIENT_ID')
     client_secret = getattr(settings, 'SOCIAL_AUTH_GOOGLE_SECRET')
     code = request.GET.get('code')
+    pprint(f"code : {code}")
 
     # 1. 받은 코드로 구글에 access token 요청
     token_req = requests.post(
@@ -169,6 +171,7 @@ def google_callback(request):
 
     # 1-1. json으로 변환 & 에러 부분 파싱
     token_req_json = token_req.json()
+    pprint(f"token_req_json  : {token_req_json }")
     error = token_req_json.get("error")
 
     # 1-2. 에러 발생 시 종료
@@ -191,6 +194,7 @@ def google_callback(request):
 
     # 2-2. 성공 시 이메일 가져오기
     email_req_json = email_req.json()
+    pprint(f"email_req_json : {email_req_json}")
     email = email_req_json.get('email')
 
     # return JsonResponse({'access': access_token, 'email':email})
