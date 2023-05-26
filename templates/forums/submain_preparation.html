@@ -16,7 +16,7 @@
             <span class="menubox_content">비자 신청 절차</span>
             <img class="menubox_icon" src="/static/images/passport.png"/>
         </div>
-        <div class="submain_menubox">
+        <div class="submain_menubox" id="submain_menubox_dorm">
             <span class="menubox_title">기숙사</span>
             <span class="menubox_content">기숙사 종류 및
                 특징</span>
@@ -42,6 +42,9 @@
       $("#whole").css("height","100%")      
       $("#submain_menubox_visa").on("click",function(){
         location.href = "{% url 'forums:visa' school_name %}"
+      })
+      $("#submain_menubox_dorm").on("click",function(){
+        location.href = "{% url 'forums:dorm' school_name %}"
       })
     })
   </script>
