@@ -7,24 +7,26 @@
 
   <div class="content_box_large">
     <div class="course_content">
-      {% for field in courses %}
+      <div class="uni_review_item_container">
+      {% for field in uni_review %}
 
       <div class="course_item_box">
+        <div class="uni_review_top">
         <div class="course_item_rank">
           {% for i in "x"|rjust:field.rank %}
           <div class="star" id="star10"></div>
           {% endfor %}
         </div>
+      
 
-        <div class="title_and_date">
-          <div class="course_item_title">{{field.title}}</div>
-
-          <div class="course_item_date">{{field.date}}</div>
-        </div>
-
+    
+          <div class="review_item_date">{{field.date}}</div>
+        
+      </div>
         <div class="course_item_content">{{field.content}}</div>
       </div>
       {% endfor %}
+    </div>
     </div>
   </div>
 </div>
