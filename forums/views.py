@@ -13,11 +13,17 @@ def main(request, school_name):
     # response = requests.get(url,params=data)
     # context = json.loads(response.text)
 
-	school_info = School.objects.filter(school=school_name)[0]
-	context = {
-		'school_name': school_info.school,
-		'rank': school_info.rank
-	}
+	try:
+		school_info = School.objects.filter(school=school_name)[0]
+		context = {
+			'school_name': school_info.school,
+			'rank': school_info.rank
+		}
+	except IndexError as e:
+		context = {
+			'school_name': "성균관대학교",
+			'rank': 5
+		}
 	return render(request, 'forums/main.html', context)
 
     # return render(request, 'forums/main.html', {'school_name': school_name})
