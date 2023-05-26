@@ -11,7 +11,7 @@
   
 
     <div class="menu_boxes">
-        <div class="submain_menubox">
+        <div class="submain_menubox" id="submain_menubox_visa">
             <span class="menubox_title">비자</span>
             <span class="menubox_content">비자 신청 절차</span>
             <img class="menubox_icon" src="/static/images/passport.png"/>
@@ -40,6 +40,9 @@
       // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
       $("#whole").css("background-color","#f5f5f7")
       $("#whole").css("height","100%")      
+      $("#submain_menubox_visa").on("click",function(){
+        location.href = "{% url 'forums:visa' school_name %}"
+      })
     })
   </script>
 {% endblock %}

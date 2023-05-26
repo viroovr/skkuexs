@@ -13,7 +13,8 @@
 .submain_header {
     display: flex;
     justify-content: center;
-    margin-top : 40; 
+    margin-top : 3rem; 
+    /* margin-left: 6.875rem; */
 }
 .submain_menubox{
         width: 25.688rem;
@@ -221,23 +222,295 @@
     padding-left: 0.2rem;
 }
 
-.course_content{
+#bigver{
+    width: 0.25rem;
+	height: 3rem;
+	/* position:absolute; */
+	flex-grow: 0;
+	margin: 1.2rem 2.5rem 0.125rem 2.5rem;
+	/* transform: rotate(180deg); */
+	background-color: #000;
+}
+.course_name{
+    flex-grow: 0;
+  font-family: "Noto Sans KR";
+  font-size: 3rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+  text-align: center;
+  color: #000000;
+  vertical-align: sub;
+}
+.course_block{
+
+    height: 100%;
+    width: 100%;
+    padding-top: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.course_header{
 
         display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        /* flex-flow: column wrap; */
-        justify-content: space-around;
-        align-content: space-around;
+        justify-content: center;
+        margin-top : 40; 
+
+}
+.title_and_date{
+    width : 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.course_content{
+    width: 69.438rem;
+    /* height: 68.875rem; */
+    display: flex;
+    margin : auto;
+    flex-flow: column wrap;
+    justify-content: space-around;
+    align-content: space-around;
+    /* padding: 4rem; */
+    align-content: center;
+    margin-bottom: 1.375rem;
+    flex-direction: row;
+        
+    
 
 }
 
 .content_box_large {
     width: 73.875rem;
-    height: 68.875rem;
+    height: auto;
     margin: auto;
-    padding: 0 0 0.938rem;
+    margin-top:1.438rem ;
+    padding: 2rem 1rem 2rem 1rem;
     border-radius: 21px;
     box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
     background-color: #fff;
   }
+
+  .course_item_box{
+    
+        width: 33.438rem;
+        height: 13.563rem;
+        margin: 0.6rem;
+        padding: 1.75rem 1.438rem;
+        border-radius: 21px;
+        box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
+        background-color: #fff;
+  }
+  #star10{
+    width: 1.078rem;
+    height: 1.069rem;
+    float:left;
+    }
+
+
+  .course_item_title{
+
+        width: 12.25rem;
+        height: 1.438rem;
+        flex-grow: 0;
+        margin: 1.244rem 9.75rem 1.25rem 0;
+        font-family: Inter;
+        font-size: 1.75rem;
+        font-weight: 600;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.56px;
+        text-align: left;
+        color: #000;
+  }
+
+  .course_item_date{
+
+        width: 8.375rem;
+        height: 1.375rem;
+        flex-grow: 0;
+        margin: auto;
+        font-family: "Noto Sans KR";
+        font-size: 1.125rem;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.72px;
+        white-space: nowrap;
+        text-align: right;
+        color: #868686;
+      }
+
+
+      .course_item_content{
+        width: 30.5rem;
+        height: 5.063rem;
+        font-family: 'Noto Sans KR', sans-serif;
+        font-size: 1.375rem;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: -0.44px;
+        text-align: left;
+        color: #000;
+      }
+
+      .course_item_rank{
+
+      }
+      .preparation_header {
+        display: flex;
+        justify-content: center;
+    
+    }
+    
+.preparation_title_box {
+    flex-grow: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    }
+
+.preparation_title {
+    flex-grow: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 3.25rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    text-align: center;
+    color: #000;
+    }
+
+.preparation_filter_box {
+    padding-top: 1.3rem;
+    width: 33rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    color: #6c6c6c;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+}
+
+.preparation_content {
+    display: flex;
+    justify-content: center;
+    padding: 1rem 4rem 0rem;
+}
+
+.preparation_item_box {
+    flex-grow: 1;
+    margin: 0px 1rem 0px;
+    height: auto;
+    border-radius: 21px;
+    box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.16);
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    padding-left: 1.7rem;
+}
+
+.preparation_item_left {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preparation_item_right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.preparation_flag_container {
+    width: 55%;
+}
+
+.preparation_item_title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    color: #000;
+    margin-top: 1.5rem;
+}
+
+.preparation_item_subtitle {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    color: #000;
+    margin-top: 1.5rem;
+    margin-left: 2.5rem;
+    margin-bottom: 0.1rem;
+}
+
+.preparation_up {
+    display: flex;
+    flex-direction: row;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+}
+
+.preparation_up_left {
+    display: flex;
+    flex-direction: row;
+    width: 20rem;
+    align-items: flex-end;
+}
+
+.preparation_up_right {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.preparation_down {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.6rem;
+    padding-left: 0.7rem;
+    flex-grow: 1;
+}
+
+.preparation_list {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    color: #000;
+    margin-top: 0.3rem;
+}
+
+.preparation_footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1.5rem;
+    padding-bottom: 1rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    color: #747272;
+    margin-top: 1.2rem;
+}

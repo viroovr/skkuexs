@@ -1,6 +1,6 @@
 from django.db import models
 
-class Repote(models.Model):
+class Report(models.Model):
     
 	user_department = models.CharField(max_length=200, null=True, blank=True)
 	user_type = models.CharField(max_length=200, null=True, blank=True)
@@ -49,3 +49,11 @@ class Repote(models.Model):
 	etc_good = models.CharField(max_length=200, null=True, blank=True)
 	etc_feel = models.CharField(max_length=200, null=True, blank=True)
 	ect_say = models.CharField(max_length=200, null=True, blank=True)
+
+
+class School(models.Model):
+	school = models.CharField(max_length=50, null=True, blank=True)
+	period = models.CharField(max_length=50, null=True, blank=True)
+	website = models.CharField(max_length=100, null=True, blank=True)
+	impression = models.TextField(null=True, blank=True)
+	rank = models.IntegerField()

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Report, School
 
 import requests
 import json
@@ -12,11 +13,12 @@ def main(request, school_name):
     # response = requests.get(url,params=data)
     # context = json.loads(response.text)
 
-    context = {
-        'school_name': school_name,
-        'rank': 4
-    }
-    return render(request, 'forums/main.html', context)
+	school_info = School.objects.filter(school=school_name)[0]
+	context = {
+		'school_name': school_info.school,
+		'rank': school_info.rank
+	}
+	return render(request, 'forums/main.html', context)
 
     # return render(request, 'forums/main.html', {'school_name': school_name})
 
@@ -34,7 +36,59 @@ def submain_uni_life(request, school_name):
 
 def courses(request, school_name):
     context = {
-        'school_name': school_name}
+        'school_name': school_name,
+        'course_name':"Software",
+        'courses': [
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 3,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 5,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 2,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 1,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            }
+            
+            
+            ]}
 
     return render(request, 'forums/courses.html',context)
 
@@ -91,3 +145,9 @@ def community(request, school_name):
     # 3의 배수가 되게끔 !hidden json을 추가로 넣어줘야 함
 
     return render(request, 'forums/community.html', context)
+
+def visa(request, school_name):
+    context = {
+        'school_name': school_name
+    }
+    return render(request, 'forums/visa.html', context)

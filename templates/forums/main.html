@@ -53,28 +53,39 @@
       </div>
 
       <div class=area3b>
-        <div class="wordcloud"><span>Word Cloud</span></div>
+        <!-- <div class="wordcloud"><span>Word Cloud</span></div> -->
+        <img class="wordcloud" src="/static/images/WordCloud.png">
       </div>
     </div>
     <div class=area4>
-      <div class="schoolimg" style="background-image:url(/static/images/rectangle_5.png);"></div>
-      <div class="schoolimg" style="background-image:url(/static/images/rectangle_6.png);"></div>
-      <div class="schoolimg" style="background-image:url(/static/images/rectangle_7.png);"></div>
+      <div class="schoolimg" style="background-image:url(/static/images/Harvard1.jpg);"></div>
+      <div class="schoolimg" style="background-image:url(/static/images/Harvard2.jpg);"></div>
+      <div class="schoolimg" style="background-image:url(/static/images/Harvard3.jpg);"></div>
     </div>
     <div class=area5>
 
       <div class=menubox>
-        <div class="menuword">준비과정</div>
-        <div class="menu_text">비자</div>
+        <a href="{% url 'forums:submain' school_name %}" style="text-decoration: none">
+          <div class="menuword">
+              준비과정
+          </div>
+        </a>
+        <a href="{% url 'forums:visa' school_name %}" style="text-decoration: none">
+          <div class="menu_text">비자</div>
+        </a>
         <div class="menu_text">기숙사</div>
         <div class="menu_text">기타 유의사항</div>
       </div>
 
     <div class="midlongline"></div>
       <div class=menubox>
-        <div class="menuword">학교생활</div>
+        <a href="{% url 'forums:submain_uni_life' school_name %}" style="text-decoration: none">
+          <div class="menuword">학교생활</div>
+        </a>
+        <a href="{% url 'forums:courses' school_name %}" style="text-decoration: none">
+          <div class="menu_text">학업</div>
+        </a>
         <div class="menu_text">학교생활후기</div>
-        <div class="menu_text">학업</div>
         <div class="menu_text">학교가는법</div>
       </div>
       <div class="midlongline"></div>
