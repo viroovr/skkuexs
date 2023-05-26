@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-33">
+    <form method="post" action=""><!-- method, url 아직 미정 -->
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <label class="search_title">회원가입</label>
+        <div class="mb-3">
+            <label for="school" class="search_subtitle">학교 선택</label>
+            <input type="text" class="form-email" name="school" id="school"
+                   value="{{ form.school.value|default_if_none:'' }}">
+        </div>        
+        <button type="submit" class="btnbtn btn-send">본인인증</button>
+    </form>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    var school_list = ["abc","abd","abf","bcd","bfe","bbb","cde","efg","fgh","ghi"]; // 서버에 저장된 데이터에서 가져올 예정
+    $(function() {
+        $("#school").autocomplete({ // 학교 자동완성 기능에 적용
+            source: school_list
+        })
+    })
+</script>
+{% endblock %}

@@ -154,6 +154,33 @@ def community(request, school_name):
 
 def visa(request, school_name):
     context = {
-        'school_name': school_name
+        'school_name': school_name,
+        'visa_type': 'D-4',
+        'visa_period': '약 2개월',
+        'visa_application_process': [
+             '비자 온라인 신청서 ABC 작성 (파견교 XYZ 문서 필수)',
+             '비자 수수료 납부',
+             '비자 인터뷰 예약'
+        ],
+        'update_date': '2023.04'
+
     }
     return render(request, 'forums/visa.html', context)
+
+def dorm(request, school_name):
+    context = {
+        'school_name': school_name,
+        'dorm_list': [
+             'Starbucks',
+             'Facebook',
+             'Apple',
+             'Google',
+             'Amazon'
+        ],
+        'dorm_cost': '약 $1000/월',
+        'dorm_link': 'https://www.naver.com',
+        'dorm_characteristics': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ',
+        'update_date': '2023.04'
+
+    }
+    return render(request, 'forums/dorm.html', context)

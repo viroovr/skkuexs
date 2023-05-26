@@ -110,6 +110,9 @@ def signup(request):
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
 
+def select(request):
+    return render(request, 'common/school_select.html')
+
 
 def kakao_login(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
