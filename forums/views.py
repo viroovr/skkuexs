@@ -98,6 +98,63 @@ def courses(request, school_name):
 
     return render(request, 'forums/courses.html',context)
 
+def uni_review(request, school_name):
+    context = {
+        'school_name': school_name,
+        'uni_review': [
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 3,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 5,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 2,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 1,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },
+            {  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            },{  'rank': 4,
+                "title": "SWE3208",
+                "date": "23년 1학기 수강자",
+                "content": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia . o est sit aliqua dolor do amet sint. Velit officia .",
+            }
+            
+            
+            ]}
+
+    return render(request, 'forums/uni_review.html',context)
+
 def community(request, school_name):
 
     context = {
