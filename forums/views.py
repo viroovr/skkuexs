@@ -285,3 +285,9 @@ def etc_pre(request, school_name):
         ]
      }
      return render(request,'forums/etc_pre.html',context)
+
+def fill_out(request, school_name):
+    context = {
+        'school_name': school_name
+    }
+    return render(request,'forums/fill_out.html',context)
