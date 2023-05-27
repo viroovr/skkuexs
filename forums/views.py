@@ -256,3 +256,42 @@ def dorm(request, school_name):
 
     }
     return render(request, 'forums/dorm.html', context)
+
+def etc_pre(request, school_name):
+     context = {
+        'school_name': school_name,
+        'pre_list': [
+            'Starbucks',
+            'Facebook',
+            'Apple',
+            'Google',
+            'Amazon'
+        ],
+        'pre_info': [
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+        ]
+     }
+     return render(request,'forums/etc_pre.html',context)

@@ -1,0 +1,64 @@
+{% extends "forums/base_for_forums.html" %}
+{% block content %}
+<div class="community_block">
+  <div class="preparation_header">
+    <div class="preparation_filter_box"></div>
+    <div class="preparation_title_box">
+        <div class="preparation_title">기타 유의사항</div>
+    </div>
+    <div class="preparation_filter_box">준비 과정</div>
+  </div>
+  <div class="preparation_content">
+    <div class="dorm_item_box">
+      <div class="etcpre_container">
+        <div class="dorm_content">
+          <div class="dorm_item_title">
+            필수준비물
+          </div>
+          <div class="dorm_store">
+            {% for field in pre_list %}
+            <div class="dorm_detail_list">
+              {{forloop.counter}}. {{field}}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="etcpre_content">
+          <div class="etcpre_title">
+            생생 정보
+          </div>
+          {% for field in pre_info %}
+          <div class="etcpre_box">
+            <div class="etcpre_box_innter">
+              <div class="etcpre_box_item">
+                {{field.content}}
+              </div>
+              <div class="etcpre_box_footer">
+                {{field.date}} 수학생
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="preparation_footer">
+        2023.04 Updated
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  
+    $(function() {
+      // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+      $("#whole").css("background-color","#f5f5f7")
+      $("#whole").css("height","auto")     
+      $("#dorm_link").on("click",function(){
+        window.open('{{dorm_link}}')
+      })
+    })
+  </script>
+{% endblock %}
