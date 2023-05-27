@@ -5,28 +5,18 @@ import requests
 import json
 
 def main(request, school_name):
-
-    # data = {
-    #     'key': value
-    # }
-    # url = 'https://~~'
-    # response = requests.get(url,params=data)
-    # context = json.loads(response.text)
-
-	try:
-		school_info = School.objects.filter(school=school_name)[0]
-		context = {
-			'school_name': school_info.school,
-			'rank': school_info.rank
-		}
-	except IndexError as e:
-		context = {
-			'school_name': "성균관대학교",
-			'rank': 5
-		}
-	return render(request, 'forums/main.html', context)
-
-    # return render(request, 'forums/main.html', {'school_name': school_name})
+    try:
+        school_info = School.objects.filter(school=school_name)[0]
+        context = {
+            'school_name': school_info.school,
+            'rank': school_info.rank
+        }
+        return render(request,'forums/main.html',context)
+    except IndexError as e:
+        context = {
+            'school_name': school_name,
+        }
+        return render(request,'forums/empty.html',context)
 
 def submain_preparation(request, school_name):
     context = {
