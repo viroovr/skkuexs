@@ -21,10 +21,12 @@
             <div class="review_item_date">{{field.date}}</div>
           </div>
           <div class="review_photos">
-          {% for image in field.photo %}
-          <img class="review_photo" width="(100/{{field.photo_num|safe}})%" src={{image|safe}}>
-          {% endfor %}
-        </div>
+            {% for image in field.photo %}
+            <div class ="aaa">
+            <img class="review_photo" src={{image|safe}}   >
+            </div>
+            {% endfor %}
+          </div>
           <div class="review_item_content">{{field.content}}</div>
         </div>
         {% endfor %}
@@ -49,7 +51,7 @@
               {% for image in field.photo %}
               <div class ="aaa">
               <img class="review_photo" src={{image|safe}}   >
-            </div>
+              </div>
               {% endfor %}
             </div>
             <div class="review_item_content">{{field.content}}</div>
