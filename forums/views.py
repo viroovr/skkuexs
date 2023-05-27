@@ -5,28 +5,18 @@ import requests
 import json
 
 def main(request, school_name):
-
-    # data = {
-    #     'key': value
-    # }
-    # url = 'https://~~'
-    # response = requests.get(url,params=data)
-    # context = json.loads(response.text)
-
-	try:
-		school_info = School.objects.filter(school=school_name)[0]
-		context = {
-			'school_name': school_info.school,
-			'rank': school_info.rank
-		}
-	except IndexError as e:
-		context = {
-			'school_name': "성균관대학교",
-			'rank': 5
-		}
-	return render(request, 'forums/main.html', context)
-
-    # return render(request, 'forums/main.html', {'school_name': school_name})
+    try:
+        school_info = School.objects.filter(school=school_name)[0]
+        context = {
+            'school_name': school_info.school,
+            'rank': school_info.rank
+        }
+        return render(request,'forums/main.html',context)
+    except IndexError as e:
+        context = {
+            'school_name': school_name,
+        }
+        return render(request,'forums/empty.html',context)
 
 def submain_preparation(request, school_name):
     context = {
@@ -256,3 +246,48 @@ def dorm(request, school_name):
 
     }
     return render(request, 'forums/dorm.html', context)
+
+def etc_pre(request, school_name):
+     context = {
+        'school_name': school_name,
+        'pre_list': [
+            'Starbucks',
+            'Facebook',
+            'Apple',
+            'Google',
+            'Amazon'
+        ],
+        'pre_info': [
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+            {
+               'content': 'Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. Ecitation veniam consequat sunt nostrud amet.',
+               'date': '2023년 1학기'
+            },
+        ]
+     }
+     return render(request,'forums/etc_pre.html',context)
+
+def fill_out(request, school_name):
+    context = {
+        'school_name': school_name
+    }
+    return render(request,'forums/fill_out.html',context)

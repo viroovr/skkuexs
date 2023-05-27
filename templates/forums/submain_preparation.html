@@ -22,7 +22,7 @@
                 특징</span>
             <img class="menubox_icon" src="/static/images/dorm.png"/>
         </div>
-        <div class="submain_menubox">
+        <div class="submain_menubox" id="submain_menubox_etc">
             <span class="menubox_title">기타 유의사항</span>
             <span class="menubox_content">필수 준비물 및 <br> 출국전 유용정보</span>
             <img class="menubox_icon" src="/static/images/yellow_idea.png"/>
@@ -45,6 +45,9 @@
       })
       $("#submain_menubox_dorm").on("click",function(){
         location.href = "{% url 'forums:dorm' school_name %}"
+      })
+      $("#submain_menubox_etc").on("click",function(){
+        location.href = "{% url 'forums:etc_pre' school_name %}"
       })
     })
   </script>

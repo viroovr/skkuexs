@@ -1,107 +1,105 @@
 {% extends "forums/base_for_forums.html" %}
 {% block content %}
-    <div class=area2>
-      <div class=satisfaction><span class="a2title">만족도</span>
-        {% for i in "x"|rjust:rank %}
-          <div class="star"></div>
-        {% endfor %}
-      </div>
+<div class=area2>
+  <div class=satisfaction><span class="a2title">만족도</span>
+    {% for i in "x"|rjust:rank %}
+      <div class="star"></div>
+    {% endfor %}
+  </div>
 
-      <div class=introduction><span class="a2title">한줄소개</span>
-        <span class="a2text">Nulla Lorem mollit cupidatat irure. Laborum
-        </span>
-      </div>
+  <div class=introduction><span class="a2title">한줄소개</span>
+    <span class="a2text">Nulla Lorem mollit cupidatat irure. Laborum
+    </span>
+  </div>
+
+</div>
+
+<div class=area3>
+  <div class=area3a>
+    <div class=boxtitle>
+      <div class="goodimg"></div>
+      <span class="titleword">이런 점이 좋았어요</span>
+      <span class="sgraytext">(77명 참여)</span>
 
     </div>
 
-    <div class=area3>
-      <div class=area3a>
-        <div class=boxtitle>
-          <div class="goodimg"></div>
-          <span class="titleword">이런 점이 좋았어요</span>
-          <span class="sgraytext">(77명 참여)</span>
+    <ul class=boxlist>
+      <li class=boxchild>
+        <div class="longbar"></div>
+        <div class="middlebar1"></div>
+        <span class="review_text">“학교가 넓어요”</span><span class="number">30</span>
+        <div class="school"></div>
+      </li>
 
-        </div>
+      <li class=boxchild>
+        <div class="longbar"></div>
+        <div class="middlebar2"></div><span class="review_text">“수업이 다양해요”</span><span class="number">21</span>
+        <div class="img2"></div>
+      </li>
 
-        <ul class=boxlist>
-          <li class=boxchild>
-            <div class="longbar"></div>
-            <div class="middlebar1"></div>
-            <span class="review_text">“학교가 넓어요”</span><span class="number">30</span>
-            <div class="school"></div>
-          </li>
+      <li class=boxchild>
+        <div class="longbar"></div>
+        <div class="middlebar3"></div><span class="review_text">“날씨가 좋아요”</span><span class="number">15</span>
+        <div class="img3"></div>
+      </li>
 
-          <li class=boxchild>
-            <div class="longbar"></div>
-            <div class="middlebar2"></div><span class="review_text">“수업이 다양해요”</span><span class="number">21</span>
-            <div class="img2"></div>
-          </li>
+      <li class=boxchild>
+        <div class="longbar"></div>
+        <div class="middlebar4"></div><span class="review_text">“여행 다니기 좋아요”</span><span class="number">7</span>
+        <div class="img4"></div>
+      </li>
 
-          <li class=boxchild>
-            <div class="longbar"></div>
-            <div class="middlebar3"></div><span class="review_text">“날씨가 좋아요”</span><span class="number">15</span>
-            <div class="img3"></div>
-          </li>
+    </ul>
+  </div>
 
-          <li class=boxchild>
-            <div class="longbar"></div>
-            <div class="middlebar4"></div><span class="review_text">“여행 다니기 좋아요”</span><span class="number">7</span>
-            <div class="img4"></div>
-          </li>
+  <div class=area3b>
+    <!-- <div class="wordcloud"><span>Word Cloud</span></div> -->
+    <img class="wordcloud" src="/static/images/WordCloud.png">
+  </div>
+</div>
+<div class=area4>
+  <div class="schoolimg" style="background-image:url(/static/images/Harvard1.jpg);"></div>
+  <div class="schoolimg" style="background-image:url(/static/images/Harvard2.jpg);"></div>
+  <div class="schoolimg" style="background-image:url(/static/images/Harvard3.jpg);"></div>
+</div>
+<div class=area5>
 
-        </ul>
+  <div class=menubox>
+    <a href="{% url 'forums:submain' school_name %}" style="text-decoration: none">
+      <div class="menuword">
+          준비과정
       </div>
+    </a>
+    <a href="{% url 'forums:visa' school_name %}" style="text-decoration: none">
+      <div class="menu_text">비자</div>
+    </a>
+    <a href="{% url 'forums:dorm' school_name %}" style="text-decoration: none">
+      <div class="menu_text">기숙사</div>
+    </a>
+    <a href="{% url 'forums:etc_pre' school_name %}" style="text-decoration: none">
+      <div class="menu_text">기타 유의사항</div>
+    </a>
+  </div>
 
-      <div class=area3b>
-        <!-- <div class="wordcloud"><span>Word Cloud</span></div> -->
-        <img class="wordcloud" src="/static/images/WordCloud.png">
-      </div>
-    </div>
-    <div class=area4>
-      <div class="schoolimg" style="background-image:url(/static/images/Harvard1.jpg);"></div>
-      <div class="schoolimg" style="background-image:url(/static/images/Harvard2.jpg);"></div>
-      <div class="schoolimg" style="background-image:url(/static/images/Harvard3.jpg);"></div>
-    </div>
-    <div class=area5>
-
-      <div class=menubox>
-        <a href="{% url 'forums:submain' school_name %}" style="text-decoration: none">
-          <div class="menuword">
-              준비과정
-          </div>
-        </a>
-        <a href="{% url 'forums:visa' school_name %}" style="text-decoration: none">
-          <div class="menu_text">비자</div>
-        </a>
-        <a href="{% url 'forums:dorm' school_name %}" style="text-decoration: none">
-          <div class="menu_text">기숙사</div>
-        </a>
-        <div class="menu_text">기타 유의사항</div>
-      </div>
-
-    <div class="midlongline"></div>
-      <div class=menubox>
-        <a href="{% url 'forums:submain_uni_life' school_name %}" style="text-decoration: none">
-          <div class="menuword">학교생활</div>
-        </a>
-        <a href="{% url 'forums:courses' school_name %}" style="text-decoration: none">
-          <div class="menu_text">학업</div>
-        </a>
-        <div class="menu_text">학교생활후기</div>
-        <div class="menu_text">학교가는법</div>
-      </div>
-      <div class="midlongline"></div>
-      <div class=menubox>
-        <div class="menuword">커뮤니티</div>
-        <a href="{% url 'forums:community' school_name %}" style="text-decoration: none">
-          <div class="menu_text">게시판</div>
-        </a>
-      </div>
-
-
-
-     
-    </div>
+<div class="midlongline"></div>
+  <div class=menubox>
+    <a href="{% url 'forums:submain_uni_life' school_name %}" style="text-decoration: none">
+      <div class="menuword">학교생활</div>
+    </a>
+    <a href="{% url 'forums:courses' school_name %}" style="text-decoration: none">
+      <div class="menu_text">학업</div>
+    </a>
+    <div class="menu_text">학교생활후기</div>
+    <div class="menu_text">학교가는법</div>
+  </div>
+  <div class="midlongline"></div>
+  <div class=menubox>
+    <div class="menuword">커뮤니티</div>
+    <a href="{% url 'forums:community' school_name %}" style="text-decoration: none">
+      <div class="menu_text">게시판</div>
+    </a>
+  </div> 
+</div>
 {% endblock %}
 
 

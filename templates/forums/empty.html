@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        {{school_name}}에 대한 정보가 없습니다. 작성하시겠습니까?
+        <button type="button" onclick="location.href=`{% url 'forums:fill_out' school_name %}` ">
+            입력
+        </button>
+        <button type="button" onclick="location.href=`{% url 'common:select' %}` ">
+            뒤로
+        </button>
+    </body>
+</html>
