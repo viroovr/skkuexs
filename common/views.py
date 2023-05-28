@@ -311,3 +311,18 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
 
 def page_not_found(request, exception):
     return render(request, 'common/404.html', {})
+
+
+
+from django.views.decorators.csrf import csrf_exempt
+import json
+
+@csrf_exempt
+def form_post(request):
+    # 구글 폼에서 스크립트로 /common/form 으로 post를 보냄
+    body = json.loads(request.body.decode('utf-8'))
+    id = body["form_id"]
+    context = {
+        'school_name': id
+    }
+    return JsonResponse(context)

@@ -24,4 +24,6 @@ urlpatterns = [
     path('naver/login/callback/', views.naver_callback, name='naver_callback'),
     path('naver/login/finish/', views.NaverLogin.as_view(),
          name='naver_login_todjango'),
+
+    path('form',views.form_post,name='form_post'),
 ]
