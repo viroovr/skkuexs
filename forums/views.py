@@ -5,24 +5,27 @@ import requests
 import json
 
 def main(request, school_name):
-    try:
-        school_info = School.objects.filter(school=school_name)[0]
+    school_info = School.objects.filter(school=school_name)
+    school_set = sorted(set(report.user_university for report in Report.objects.all()))
+    print(len(school_set), list(school_set))
+    if school_info:
+        info = school_info[0]
         context = {
-            'school_name': school_info.school,
-            'rank': school_info.rank
+            'school_name': info.school,
+            'rank': info.rank
         }
-        return render(request,'forums/main.html',context)
-    except IndexError as e:
+        return render(request, 'forums/main.html', context)
+    else:
         context = {
             'school_name': school_name,
         }
-        return render(request,'forums/empty.html',context)
+        return render(request, 'forums/empty.html', context)
 
 def submain_preparation(request, school_name):
     context = {
         'school_name': school_name}
 
-    return render(request, 'forums/submain_preparation.html',context)
+    return render(request, 'forums/submain_preparation.html', context)
 
 def submain_uni_life(request, school_name):
     context = {
