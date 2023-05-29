@@ -35,7 +35,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.translation import gettext_lazy as _
 
 state = getattr(settings, 'STATE')
-BASE_URL = 'http://127.0.0.1:8000/'
+BASE_URL = getattr(settings, 'BASE_URL')
 
 KAKAO_CALLBACK_URI = BASE_URL + 'common/kakao/login/callback/'
 NAVER_CALLBACK_URI = BASE_URL + 'common/naver/login/callback/'
@@ -166,7 +166,7 @@ def google_callback(request):
     client_id = getattr(settings, 'SOCIAL_AUTH_GOOGLE_CLIENT_ID')
     client_secret = getattr(settings, 'SOCIAL_AUTH_GOOGLE_SECRET')
     code = request.GET.get('code')
-    pprint(f"code : {code}")
+    # pprint(f"code : {code}")
 
     # 1. 받은 코드로 구글에 access token 요청
     token_req = requests.post(
@@ -174,7 +174,7 @@ def google_callback(request):
 
     # 1-1. json으로 변환 & 에러 부분 파싱
     token_req_json = token_req.json()
-    pprint(f"token_req_json  : {token_req_json }")
+    # pprint(f"token_req_json  : {token_req_json }")
     error = token_req_json.get("error")
 
     # 1-2. 에러 발생 시 종료
@@ -197,7 +197,7 @@ def google_callback(request):
 
     # 2-2. 성공 시 이메일 가져오기
     email_req_json = email_req.json()
-    pprint(f"email_req_json : {email_req_json}")
+    # pprint(f"email_req_json : {email_req_json}")
     email = email_req_json.get('email')
 
     # return JsonResponse({'access': access_token, 'email':email})
@@ -210,7 +210,7 @@ def google_callback(request):
 
 def naver_login(request):
     client_id = getattr(settings, 'SOCIAL_AUTH_NAVER_CLIENT_ID')
-    print("ho")
+    # print("ho")
     return redirect(f"https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id={client_id}&state=STATE_STRING&redirect_uri={NAVER_CALLBACK_URI}")
 
 
