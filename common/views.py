@@ -1,3 +1,5 @@
+import json
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from common.forms import UserForm
@@ -40,9 +42,30 @@ BASE_URL = getattr(settings, 'BASE_URL')
 KAKAO_CALLBACK_URI = BASE_URL + 'common/kakao/login/callback/'
 NAVER_CALLBACK_URI = BASE_URL + 'common/naver/login/callback/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'common/google/login/callback/'
-from pprint import pprint
+
 
 def social_login(request, email, access_token, code, domain):
+
+    # select(request)
+
+    # def signup(request):
+    #     if request.method == "POST":
+    #         form = UserForm(request.POST)
+    #         if form.is_valid():
+    #             form.save()
+    #             school_name = form.cleaned_data.get('school_name')
+    #             print(school_name)
+    #             username = form.cleaned_data.get('username')
+    #             print(username)
+    #             raw_password = form.cleaned_data.get('password1')
+    #             print(raw_password)
+    #             user = authenticate(username=username,
+    #                                 password=raw_password)  # 사용자 인증
+    #             login(request, user)  # 로그인
+    #             return redirect(f'/forums/{school_name}')
+    #     else:
+    #         form = UserForm()
+    # return render(request, 'common/signup.html', {'form': form})
     try:
         # 전달받은 이메일로 등록된 유저가 있는지 탐색
         user = User.objects.get(email=email)
@@ -51,7 +74,7 @@ def social_login(request, email, access_token, code, domain):
         social_user = SocialAccount.objects.get(user=user)
 
         # 있는데 구글계정이 아니어도 에러
-        if social_user.provider != domain:
+        if social_user.provider != domain.title():
             return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
 
         # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
@@ -69,7 +92,7 @@ def social_login(request, email, access_token, code, domain):
 
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
         login(request, user, backend=user.backend)  # 로그인
-        return redirect('index')
+        return redirect('/common/select/')
     except User.DoesNotExist:
 
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
@@ -89,7 +112,7 @@ def social_login(request, email, access_token, code, domain):
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
 
         login(request, user, backend=user.backend)  # 로그인
-        return redirect('index')  # TODO 로그인후 이동할 페이지 변경
+        return redirect('/common/select/')  # 로그인후 이동할 페이지 변경
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
         return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
@@ -100,15 +123,17 @@ def signup(request):
         form = UserForm(request.POST)
         if form.is_valid():
             form.save()
+            school_name = form.cleaned_data.get('school_name')
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username,
                                 password=raw_password)  # 사용자 인증
             login(request, user)  # 로그인
-            return redirect('index')
+            return redirect(f'/forums/{school_name}')
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
+
 
 def select(request):
     return render(request, 'common/school_select.html')
@@ -124,7 +149,7 @@ def kakao_login(request):
 def kakao_callback(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
     code = request.GET["code"]
-    
+
     redirect_uri = KAKAO_CALLBACK_URI
     """
     Access Token Request
@@ -312,10 +337,6 @@ class UserPasswordResetCompleteView(PasswordResetCompleteView):
 def page_not_found(request, exception):
     return render(request, 'common/404.html', {})
 
-
-
-from django.views.decorators.csrf import csrf_exempt
-import json
 
 @csrf_exempt
 def form_post(request):
