@@ -121,6 +121,3 @@ def etc_pre(request, school_name):
 		'pre_info': [report.pre_etc for report in report_list]
     }
 	return render(request,'forums/etc_pre.html', context)
-
-def fill_out(request, school_name):
-	return render(request,'forums/fill_out.html', { 'school_name': school_name })
