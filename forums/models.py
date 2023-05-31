@@ -52,6 +52,9 @@ class Report(models.Model):
 
 	rank = models.IntegerField()
 
+	def __str__(self):
+		return self.user_university
+
 class Article(models.Model):
 	user_university = models.CharField(max_length=200, null=True, blank=True)
 	title = models.CharField(max_length=200, null=True, blank=True)

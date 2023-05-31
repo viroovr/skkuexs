@@ -14,6 +14,7 @@ def main(request, school_name):
 		'school_name': school_name,
 		'rank': rank
 	}
+
 	return render(request, 'forums/main.html', context)
 
 def submain_preparation(request, school_name):
