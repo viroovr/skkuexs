@@ -8,7 +8,7 @@
   </div>
 
   <div class=introduction><span class="a2title">한줄소개</span>
-    <span class="a2text">Nulla Lorem mollit cupidatat irure. Laborum
+    <span class="a2text">{{introduction}}
     </span>
   </div>
 
@@ -89,7 +89,9 @@
     <a href="{% url 'forums:courses' school_name %}" style="text-decoration: none">
       <div class="menu_text">학업</div>
     </a>
-    <div class="menu_text">학교생활후기</div>
+    <a href="{% url 'forums:uni_review' school_name %}" style="text-decoration: none">
+      <div class="menu_text">학교생활후기</div>
+    </a>
     <div class="menu_text">학교가는법</div>
   </div>
   <div class="midlongline"></div>
