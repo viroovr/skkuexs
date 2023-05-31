@@ -9,10 +9,10 @@ def main(request, school_name):
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
-	report = report_list[0]
+	rank = sum(report.rank for report in report_list) // len(report_list)
 	context = {
-		'school_name': report.user_university,
-		'rank': report.rank
+		'school_name': school_name,
+		'rank': rank
 	}
 	return render(request, 'forums/main.html', context)
 
@@ -24,8 +24,6 @@ def submain_uni_life(request, school_name):
 
 def courses(request, school_name):
 	report_list = Report.objects.filter(user_university=school_name)
-	if not report_list:
-		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
 	course_name = []
 	courses = []
@@ -45,8 +43,6 @@ def courses(request, school_name):
 
 def uni_review(request, school_name):
 	report_list = Report.objects.filter(user_university=school_name)
-	if not report_list:
-		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
 	uni_review = []
 	for report in report_list:
@@ -64,8 +60,6 @@ def uni_review(request, school_name):
 
 def community(request, school_name):
 	article_list = Article.objects.filter(user_university=school_name)
-	if not article_list:
-		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
 	community = []
 	for article in article_list:
