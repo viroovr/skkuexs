@@ -71,7 +71,7 @@ def community(request, school_name):
 	for article in article_list:
 		community.append({ 'title': article.title,
 							'content': article.content,
-							'date': str(article.date),
+							'date': article.date.date,
 							'recommand': article.recommand,
 							'comment': article.comment
 							})

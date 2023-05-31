@@ -56,6 +56,6 @@ class Article(models.Model):
 	user_university = models.CharField(max_length=200, null=True, blank=True)
 	title = models.CharField(max_length=200, null=True, blank=True)
 	content = models.TextField(null=True, blank=True)
-	date = models.DateTimeField(null=True, blank=True)
+	date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
 	recommand = models.IntegerField()
 	comment = models.IntegerField()
