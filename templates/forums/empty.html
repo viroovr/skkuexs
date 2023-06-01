@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-
-    </head>
-    <body>
-        {{school_name}}에 대한 정보가 없습니다. 작성하시겠습니까?
-        <button type="button" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSeXJ4VyZdyUeYNPDHb7wBF5RERlUoFPEO47Hqy_tgXzHzW0lQ/viewform?usp=sf_link' ">
-            입력
-        </button>
-        <button type="button" onclick="location.href=`{% url 'common:select' %}` ">
-            뒤로
-        </button>
-    </body>
-</html>
+{% extends "forums/base_for_forums.html" %}
+{% block script %}
+<script type="text/javascript">
+    $(function(){
+        var result = confirm("{{school_name}}에 대한 정보가 없습니다. 작성하시겠습니까?")
+        if(result) {
+            location.replace('https://docs.google.com/forms/d/e/1FAIpQLSd9UlRNRWypD2YDzQqMXJzAqKEExfnh9nPhjSEWPD5qV1W3cA/viewform?usp=sf_link')
+        }
+        else {
+            history.go(-1)()
+        }
+    })
+</script>
+{% endblock %}

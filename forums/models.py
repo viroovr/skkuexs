@@ -50,10 +50,17 @@ class Report(models.Model):
 	etc_feel = models.CharField(max_length=200, null=True, blank=True)
 	ect_say = models.CharField(max_length=200, null=True, blank=True)
 
-
-class School(models.Model):
-	school = models.CharField(max_length=50, null=True, blank=True)
-	period = models.CharField(max_length=50, null=True, blank=True)
-	website = models.CharField(max_length=100, null=True, blank=True)
-	impression = models.TextField(null=True, blank=True)
 	rank = models.IntegerField()
+
+	introduction = models.TextField(null=True, blank=True)
+
+	def __str__(self):
+		return self.user_university
+
+class Article(models.Model):
+	user_university = models.CharField(max_length=200, null=True, blank=True)
+	title = models.CharField(max_length=200, null=True, blank=True)
+	content = models.TextField(null=True, blank=True)
+	date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
+	recommand = models.IntegerField()
+	comment = models.IntegerField()
