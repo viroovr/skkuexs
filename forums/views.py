@@ -4,7 +4,6 @@ from .models import Report, Article
 import requests
 import json
 
-# import openai
 
 def main(request, school_name):
 	report_list = Report.objects.filter(user_university=school_name)
@@ -12,23 +11,12 @@ def main(request, school_name):
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
 	rank = sum(report.rank for report in report_list) // len(report_list)
-
-	# openai.api_key = "api키 입력" # api키 발급 링크: https://platform.openai.com/account/api-keys
-	# introduction = ""
-	# try:
-	# 	completion = openai.ChatCompletion.create(
-	# 		model="gpt-3.5-turbo",
-	# 		messages=[{"role": "user", "content": school_name+"의 위치와 특징을 한글로 한 줄로 말해줘"}]     
-	# 	)
-	# 	introduction = completion.choices[0].message.content
-	# except:
-	# 	introduction = "api 호출 실패"
+	introduction = "" # 여기서 db탐색, db에 없으면 공백
 
 	context = {
 		'school_name': school_name,
 		'rank': rank,
-		# 'introduction': introduction
-		'introduction': 'Nulla Lorem mollit cupidatat irure. Laborum' #api 사용 시 윗줄을 대신 이용
+		'introduction': introduction
 	}
 
 	return render(request, 'forums/main.html', context)
