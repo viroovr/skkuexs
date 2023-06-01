@@ -35,7 +35,7 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-logs
+# logs
 
 # Unit test / coverage reports
 htmlcov/
@@ -59,7 +59,7 @@ cover/
 # Django stuff:
 *.log
 local_settings.py
-db.sqlite3
+# db.sqlite3
 db.sqlite3-journal
 
 # Flask stuff:

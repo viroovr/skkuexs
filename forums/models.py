@@ -52,6 +52,8 @@ class Report(models.Model):
 
 	rank = models.IntegerField()
 
+	introduction = models.TextField(null=True, blank=True)
+
 	def __str__(self):
 		return self.user_university
 

@@ -11,7 +11,7 @@ def main(request, school_name):
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
 	rank = sum(report.rank for report in report_list) // len(report_list)
-	introduction = "" # 여기서 db탐색, db에 없으면 공백
+	introduction = report_list[0].introduction
 
 	context = {
 		'school_name': school_name,
