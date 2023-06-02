@@ -103,7 +103,7 @@ def social_login(request, email, access_token, code, domain):
 
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
         login(request, user, backend=user.backend)  # 로그인
-        return redirect('/forums/{user.profile.school_name}')
+        return redirect(f'/forums/{user.profile.school_name}')
     except User.DoesNotExist:
 
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
