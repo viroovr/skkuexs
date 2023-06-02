@@ -12,11 +12,13 @@ def main(request, school_name):
 
 	rank = sum(report.rank for report in report_list) // len(report_list)
 	introduction = report_list[0].introduction
+	wordCloudUrl = "" # 여기에 url 정보 가져오기. 데이터 없으면 그냥 공백이어도 됨
 
 	context = {
 		'school_name': school_name,
 		'rank': rank,
-		'introduction': introduction
+		'introduction': introduction,
+		'wordCloudUrl' : wordCloudUrl,
 	}
 
 	return render(request, 'forums/main.html', context)
