@@ -29,5 +29,9 @@ class UserForm(UserCreationForm):
             instance.save()
         return user
 
+
+class SchoolForm(forms.Form):
+    school_name = forms.CharField(max_length=200)
+
 # from django import forms
 # from django.contrib.auth.forms import UserCreationForm

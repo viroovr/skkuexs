@@ -35,6 +35,9 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.views import LoginView
+from .forms import SchoolForm
+from .models import Profile
 
 state = getattr(settings, 'STATE')
 BASE_URL = getattr(settings, 'BASE_URL')
@@ -44,28 +47,36 @@ NAVER_CALLBACK_URI = BASE_URL + 'common/naver/login/callback/'
 GOOGLE_CALLBACK_URI = BASE_URL + 'common/google/login/callback/'
 
 
+def select(request):
+    if request.method == 'POST':
+        form = SchoolForm(request.POST)
+        user = request.user
+        if form.is_valid():
+            school_name = form.cleaned_data['school_name']
+            instance = Profile.objects.create(
+                user=user, school_name=school_name)
+            instance.save()
+            # profile = user.profile
+            # profile.school_name = school_name
+            # profile.save()
+            return redirect('/forum/' + school_name)
+    else:
+        form = SchoolForm()
+
+    return render(request, 'common/school_select.html', {'form': form})
+
+
+class CustomLoginView(LoginView):
+    def get_success_url(self):
+        # 로그인 후 리다이렉트할 URL 생성
+        profile = self.request.user.profile  # 사용자의 학교 이름을 가져옴 (가정)
+        school_name = profile.school_name
+        url = f"/forums/{school_name}"
+        return url
+
+
 def social_login(request, email, access_token, code, domain):
 
-    # select(request)
-
-    # def signup(request):
-    #     if request.method == "POST":
-    #         form = UserForm(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #             school_name = form.cleaned_data.get('school_name')
-    #             print(school_name)
-    #             username = form.cleaned_data.get('username')
-    #             print(username)
-    #             raw_password = form.cleaned_data.get('password1')
-    #             print(raw_password)
-    #             user = authenticate(username=username,
-    #                                 password=raw_password)  # 사용자 인증
-    #             login(request, user)  # 로그인
-    #             return redirect(f'/forums/{school_name}')
-    #     else:
-    #         form = UserForm()
-    # return render(request, 'common/signup.html', {'form': form})
     try:
         # 전달받은 이메일로 등록된 유저가 있는지 탐색
         user = User.objects.get(email=email)
@@ -74,7 +85,7 @@ def social_login(request, email, access_token, code, domain):
         social_user = SocialAccount.objects.get(user=user)
 
         # 있는데 구글계정이 아니어도 에러
-        if social_user.provider != domain.title():
+        if social_user.provider != domain:
             return JsonResponse({'err_msg': 'no matching social type'}, status=status.HTTP_400_BAD_REQUEST)
 
         # 이미 Google로 제대로 가입된 유저 => 로그인 & 해당 우저의 jwt 발급
@@ -87,12 +98,12 @@ def social_login(request, email, access_token, code, domain):
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signin'}, status=accept_status)
 
-        accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json = accept.json()
+        # accept_json.pop('user', None)
 
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
         login(request, user, backend=user.backend)  # 로그인
-        return redirect('/common/select/')
+        return redirect('/forums/{user.profile.school_name}')
     except User.DoesNotExist:
 
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
@@ -134,9 +145,7 @@ def signup(request):
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
 
-
-def select(request):
-    return render(request, 'common/school_select.html')
+    # return render(request, 'common/school_select.html')
 
 
 def kakao_login(request):
