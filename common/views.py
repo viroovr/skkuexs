@@ -59,7 +59,7 @@ def select(request):
             # profile = user.profile
             # profile.school_name = school_name
             # profile.save()
-            return redirect('/forum/' + school_name)
+            return redirect('/forums/' + school_name)
     else:
         form = SchoolForm()
 
@@ -103,6 +103,7 @@ def social_login(request, email, access_token, code, domain):
 
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
         login(request, user, backend=user.backend)  # 로그인
+            
         return redirect(f'/forums/{user.profile.school_name}')
     except User.DoesNotExist:
 
@@ -116,14 +117,16 @@ def social_login(request, email, access_token, code, domain):
         if accept_status != 200:
             return JsonResponse({'err_msg': 'failed to signup'}, status=accept_status)
 
-        accept_json = accept.json()
-        accept_json.pop('user', None)
+        # accept_json = accept.json()
+        # accept_json.pop('user', None)
 
         user = User.objects.get(email=email)
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
 
         login(request, user, backend=user.backend)  # 로그인
         return redirect('/common/select/')  # 로그인후 이동할 페이지 변경
+    except Exception:
+        return redirect('/common/select/')
     except SocialAccount.DoesNotExist:
         # User는 있는데 SocialAccount가 없을 때 (=일반회원으로 가입된 이메일일때)
         return JsonResponse({'err_msg': 'email exists but not social user'}, status=status.HTTP_400_BAD_REQUEST)
