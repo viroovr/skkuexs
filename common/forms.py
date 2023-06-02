@@ -31,7 +31,9 @@ class UserForm(UserCreationForm):
 
 
 class SchoolForm(forms.Form):
-    school_name = forms.CharField(max_length=200)
+    school_name = forms.CharField(max_length=200, label="school_name")
+    last_name = forms.CharField(max_length=200, label="last_name")
+    first_name = forms.CharField(max_length=200, label="first_name")
 
 # from django import forms
 # from django.contrib.auth.forms import UserCreationForm

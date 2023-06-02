@@ -53,9 +53,14 @@ def select(request):
         user = request.user
         if form.is_valid():
             school_name = form.cleaned_data['school_name']
+            last_name = form.cleaned_data['last_name']
+            first_name = form.cleaned_data['first_name']
             instance = Profile.objects.create(
                 user=user, school_name=school_name)
             instance.save()
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
             # profile = user.profile
             # profile.school_name = school_name
             # profile.save()
@@ -80,7 +85,7 @@ def social_login(request, email, access_token, code, domain):
     try:
         # 전달받은 이메일로 등록된 유저가 있는지 탐색
         user = User.objects.get(email=email)
-
+        profile = user.profile
         # FK로 연결되어 있는 socialaccount 테이블에서 해당 이메일의 유저가 있는지 확인
         social_user = SocialAccount.objects.get(user=user)
 
@@ -105,7 +110,7 @@ def social_login(request, email, access_token, code, domain):
         login(request, user, backend=user.backend)  # 로그인
             
         return redirect(f'/forums/{user.profile.school_name}')
-    except User.DoesNotExist:
+    except (User.DoesNotExist, Profile.DoesNotExist):
 
         # 전달받은 이메일로 기존에 가입된 유저가 아예 없으면 => 새로 회원가입 & 해당 유저의 jwt 발급
         data = {'access_token': access_token, 'code': code}
