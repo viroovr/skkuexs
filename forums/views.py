@@ -11,24 +11,32 @@ def main(request, school_name):
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 
-	rank = sum(report.rank for report in report_list) // len(report_list)
-	introduction = report_list[0].introduction
-	wordCloudUrl = "" # 여기에 url 정보 가져오기. 데이터 없으면 그냥 공백이어도 됨
-
+	report = report_list[0]
 	context = {
 		'school_name': school_name,
-		'rank': rank,
-		'introduction': introduction,
-		'wordCloudUrl' : wordCloudUrl,
+		'rank': sum(report.rank for report in report_list) // len(report_list),
+		'introduction': report.introduction,
+		'wordCloudUrl':report.wordCloudUrl,
+		'country': report.user_country
 	}
 
 	return render(request, 'forums/main.html', context)
 
 def submain_preparation(request, school_name):
-	return render(request, 'forums/submain_preparation.html', { 'school_name': school_name })
+	report_list = Report.objects.filter(user_university=school_name)
+	context = {
+		'school_name': school_name,
+		'country': report_list[0].user_country if report_list else 'South Korea'
+	}
+	return render(request, 'forums/submain_preparation.html', context)
 
 def submain_uni_life(request, school_name):
-	return render(request, 'forums/submain_uni_life.html', { 'school_name': school_name })
+	report_list = Report.objects.filter(user_university=school_name)
+	context = {
+		'school_name': school_name,
+		'country': report_list[0].user_country if report_list else 'South Korea'
+	}
+	return render(request, 'forums/submain_uni_life.html', context)
 
 def courses(request, school_name):
 	report_list = Report.objects.filter(user_university=school_name)
@@ -45,7 +53,8 @@ def courses(request, school_name):
 	context = {
         'school_name': school_name,
         'course_name': course_name,
-        'courses': courses
+        'courses': courses,
+		'country': report_list[0].user_country if report_list else 'South Korea'
 	}
 	return render(request, 'forums/courses.html', context)
 
@@ -62,7 +71,8 @@ def uni_review(request, school_name):
 							})
 	context = {
 		'school_name': school_name,
-		'uni_review': uni_review
+		'uni_review': uni_review,
+		'country': report_list[0].user_country if report_list else 'South Korea'
 	}
 	return render(request, 'forums/uni_review.html', context)
 
@@ -77,9 +87,11 @@ def community(request, school_name):
 							'recommand': article.recommand,
 							'comment': article.comment
 							})
+	report_list = Report.objects.filter(user_university=school_name)
 	context = {
 		'school_name': school_name,
-		'community': community
+		'community': community,
+		'country': report_list[0].user_country if report_list else 'South Korea'
 	}
 	return render(request, 'forums/community.html', context)
 
@@ -89,10 +101,6 @@ def visa(request, school_name):
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
 	report = report_list[0]
-
-	country = "South Korea" # 예시: Denmark, 값이 없을 리는 없는데 혹시 없으면 'South Korea'
-	country_code = "kr" # 예시: dk, 이것도 값이 없을 리 없는데 없으면 'kr'
-
 	context = {
         'school_name': school_name,
         'visa_type': report.pre_visa_type,
@@ -101,8 +109,8 @@ def visa(request, school_name):
 			report.pre_visa_how,
 			report.pre_visa_ready_check
         ],
-		'country': country,
-		'country_code': country_code,
+		'country': report.user_country,
+		'country_code': report.user_country_code,
         'update_date': str(timezone.now())
     }
 	return render(request, 'forums/visa.html', context)
@@ -121,11 +129,10 @@ def dorm(request, school_name):
 		'dorm_cost': report.now_cost,
 		'dorm_link': webSite,
 		'dorm_characteristics': report.now_etc,
-        'update_date': str(timezone.now())
+        'update_date': str(timezone.now()),
+		'country': report.user_country
     }
 	return render(request, 'forums/dorm.html', context)
-
-
 
 def etc_pre(request, school_name):
 	report_list = Report.objects.filter(user_university=school_name).exclude(pre_etc__exact='').order_by('-user_duration')
@@ -133,7 +140,7 @@ def etc_pre(request, school_name):
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
 	update_date = Report.objects.filter(user_university=school_name).aggregate(Max('user_duration'))
-
+	report = report_list[0]
 	context = {
         'school_name': school_name,
 		'pre_list': [],
@@ -142,6 +149,7 @@ def etc_pre(request, school_name):
 				'date': report.user_duration,
 			}
 			for report in report_list],
-		'update_date': update_date
+		'update_date': update_date,
+		'country': report.user_country
     }
 	return render(request,'forums/etc_pre.html', context)

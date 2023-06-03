@@ -5,6 +5,8 @@ class Report(models.Model):
 	user_department = models.CharField(max_length=200, null=True, blank=True)
 	user_type = models.CharField(max_length=200, null=True, blank=True)
 	user_country = models.CharField(max_length=200, null=True, blank=True)
+	user_country_code = models.CharField(max_length=200, null=True, blank=True)
+
 	user_university = models.CharField(max_length=200, null=True, blank=True)
 	user_duration = models.CharField(max_length=200, null=True, blank=True)
 
@@ -46,13 +48,13 @@ class Report(models.Model):
 	post_how_end = models.CharField(max_length=200, null=True, blank=True)
 	post_etc = models.CharField(max_length=200, null=True, blank=True)
 
-	etc_good = models.CharField(max_length=200, null=True, blank=True)
+	# etc_good = models.CharField(max_length=200, null=True, blank=True)
 	etc_feel = models.CharField(max_length=200, null=True, blank=True)
 	ect_say = models.CharField(max_length=200, null=True, blank=True)
 
 	rank = models.IntegerField()
-
 	introduction = models.TextField(null=True, blank=True)
+	wordCloudUrl = models.CharField(max_length=200, null=True, blank=True)
 
 	def __str__(self):
 		return self.user_university
