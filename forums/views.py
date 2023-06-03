@@ -88,6 +88,10 @@ def visa(request, school_name):
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
 	report = report_list[0]
+
+	country = "South Korea" # 예시: Denmark, 값이 없을 리는 없는데 혹시 없으면 'South Korea'
+	country_code = "kr" # 예시: dk, 이것도 값이 없을 리 없는데 없으면 'kr'
+
 	context = {
         'school_name': school_name,
         'visa_type': report.pre_visa_type,
@@ -96,6 +100,8 @@ def visa(request, school_name):
 			report.pre_visa_how,
 			report.pre_visa_ready_check
         ],
+		'country': country,
+		'country_code': country_code,
         'update_date': str(timezone.now())
     }
 	return render(request, 'forums/visa.html', context)

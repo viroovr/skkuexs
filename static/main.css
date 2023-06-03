@@ -26,7 +26,7 @@
 	
   }
 .header { 
-	width:34.8125rem;
+	width: 100%;
 	height:5.8125rem;
 	position:absolute;
 	
@@ -115,7 +115,7 @@ li {
 }
 
 .area1a { 
-	width:40rem;
+	/* width:40rem; */
 	height:2.75rem;
 	position:absolute;
 	left:0rem;
@@ -126,7 +126,7 @@ li {
 
 .uniname { 
 	color:#000;
-	width:22.8125rem;
+	min-width:22.8125rem;
 	height:2.75rem;
 	/* position:absolute; */
 	font-family: 'Inter', sans-serif;
