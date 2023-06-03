@@ -34,7 +34,10 @@
                 {{field.content}}
               </div>
               <div class="etcpre_box_footer">
-                {{field.date}} 수학생
+                {% if field.date == '' %}
+                {% else %}
+                {{field.date}}년도 수학생
+                {% endif %}
               </div>
             </div>
           </div>
@@ -42,7 +45,7 @@
         </div>
       </div>
       <div class="preparation_footer">
-        2023.04 Updated
+        {{update_date.user_duration__max}} Updated
       </div>
     </div>
     </div>

@@ -3,6 +3,7 @@ from django.utils import timezone
 from .models import Report, Article
 import requests
 import json
+from django.db.models import Max
 
 
 def main(request, school_name):
@@ -122,14 +123,23 @@ def dorm(request, school_name):
     }
 	return render(request, 'forums/dorm.html', context)
 
+
+
 def etc_pre(request, school_name):
-	report_list = Report.objects.filter(user_university=school_name)
+	report_list = Report.objects.filter(user_university=school_name).exclude(pre_etc__exact='').order_by('-user_duration')
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
+	update_date = Report.objects.filter(user_university=school_name).aggregate(Max('user_duration'))
+
 	context = {
         'school_name': school_name,
-		'pre_list': [report.pre_etc for report in report_list],
-		'pre_info': [report.pre_etc for report in report_list]
+		'pre_list': [],
+		'pre_info': [{
+				'content': report.pre_etc,
+				'date': report.user_duration,
+			}
+			for report in report_list],
+		'update_date': update_date
     }
 	return render(request,'forums/etc_pre.html', context)
