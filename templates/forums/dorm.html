@@ -61,8 +61,9 @@
       // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
       $("#whole").css("background-color","#f5f5f7")
       $("#whole").css("height","auto")     
+      // console.log('{{dorm_link | safe}}')
       $("#dorm_link").on("click",function(){
-        window.open('{{dorm_link}}')
+        location.href = '{{dorm_link | safe}}'
       })
     })
   </script>

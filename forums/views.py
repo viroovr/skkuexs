@@ -112,12 +112,14 @@ def dorm(request, school_name):
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
+	webSite = Report.objects.filter(user_university=school_name).exclude(now_website__exact='').filter(now_website__startswith='http')[0].now_website
+	
 	report = report_list[0]
 	context = {
         'school_name': school_name,
-		'dorm_list': [report.now_dorm_name for report in report_list],
+		'dorm_list': list(set(list(filter(None, [report.now_dorm_name.strip() for report in report_list])))),
 		'dorm_cost': report.now_cost,
-		'dorm_link': report.now_website,
+		'dorm_link': webSite,
 		'dorm_characteristics': report.now_etc,
         'update_date': str(timezone.now())
     }
