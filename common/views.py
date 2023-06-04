@@ -120,11 +120,15 @@ class CustomLoginView(LoginView):
     def get(self, request, *args, **kwargs):
         # 프로필 체크
         try:
-            if(request.user.is_authenticated):
+            if (request.user.is_authenticated):
                 school_name = self.request.user.profile.school_name
                 url = f'/forums/{school_name}'
                 return redirect(url)  # 적절한 URL 이름으로 수정
-        except ObjectDoesNotExist:
+        # except ObjectDoesNotExist:
+        except Profile.DoesNotExist:
+            return redirect('common:select')
+        except User.DoesNotExist:
+            print("hi")
             pass
         # 프로필이 없는 경우, 기본 로그인 화면 표시
         return super().get(request, *args, **kwargs)
@@ -254,6 +258,7 @@ def kakao_callback(request):
     """
     return social_login(request, email, access_token, code, domain="kakao")
 
+
 @check_profile
 def google_login(request):
     scope = "https://www.googleapis.com/auth/userinfo.email"
@@ -305,6 +310,7 @@ def google_callback(request):
 
     # 3. 전달받은 이메일, access_token, code를 바탕으로 회원가입/로그인
     return social_login(request, email, access_token, code, domain="google")
+
 
 @check_profile
 def naver_login(request):
