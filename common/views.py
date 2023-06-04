@@ -72,16 +72,35 @@ def select(request):
     return render(request, 'common/school_select.html', {'form': form})
 
 
-def profile_required(view_func):
+def community_profile_required(view_func):
     def wrapper(request, *args, **kwargs):
         try:
-            if (request.user.is_anonymous or request.user.profile):
-                return render(request, 'forums/profile_required.html')
+            if (request.user.is_anonymous or not request.user.profile):
+                print("hee")
+                return render(request, 'forums/community_profile_required.html')
                 # profile = request.user.profile
+            else:
+                print("heeaa")
+                return view_func(request, *args, **kwargs)
+        except ObjectDoesNotExist:
+            print("hevabaa")
+            return render(request, 'forums/community_profile_required.html')
+
+    return wrapper
+
+
+def check_profile(view_func):
+    def wrapper(request, *args, **kwargs):
+        try:
+            if (request.user.is_authenticated):
+                profile = request.user.profile  # 사용자의 학교 이름을 가져옴 (가정)
+                school_name = profile.school_name
+                url = f"/forums/{school_name}"
+                return redirect(url)
             else:
                 return view_func(request, *args, **kwargs)
         except ObjectDoesNotExist:
-            return render(request, 'forums/profile_required.html')
+            return view_func(request, *args, **kwargs)
 
     return wrapper
 
@@ -97,6 +116,24 @@ class CustomLoginView(LoginView):
         school_name = profile.school_name
         url = f"/forums/{school_name}"
         return url
+
+    def get(self, request, *args, **kwargs):
+        # 프로필 체크
+        try:
+            if(request.user.is_authenticated):
+                school_name = self.request.user.profile.school_name
+                url = f'/forums/{school_name}'
+                return redirect(url)  # 적절한 URL 이름으로 수정
+        except ObjectDoesNotExist:
+            pass
+        # 프로필이 없는 경우, 기본 로그인 화면 표시
+        return super().get(request, *args, **kwargs)
+        # try:
+        #     if (self.request.user.profile)
+
+        # except ObjectDoesNotExist:
+        #     url = f"/forums/{school_name}"
+        #         return url
 
 
 def social_login(request, email, access_token, code, domain):
@@ -175,6 +212,7 @@ def signup(request):
     # return render(request, 'common/school_select.html')
 
 
+@check_profile
 def kakao_login(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
     return redirect(
@@ -216,7 +254,7 @@ def kakao_callback(request):
     """
     return social_login(request, email, access_token, code, domain="kakao")
 
-
+@check_profile
 def google_login(request):
     scope = "https://www.googleapis.com/auth/userinfo.email"
     client_id = getattr(settings, 'SOCIAL_AUTH_GOOGLE_CLIENT_ID')
@@ -268,7 +306,7 @@ def google_callback(request):
     # 3. 전달받은 이메일, access_token, code를 바탕으로 회원가입/로그인
     return social_login(request, email, access_token, code, domain="google")
 
-
+@check_profile
 def naver_login(request):
     client_id = getattr(settings, 'SOCIAL_AUTH_NAVER_CLIENT_ID')
     # print("ho")
