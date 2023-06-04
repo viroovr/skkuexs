@@ -100,6 +100,7 @@ def visa(request, school_name):
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
+	update_date = Report.objects.filter(user_university=school_name).exclude(pre_visa_how__exact='').aggregate(Max('user_duration'))
 	report = report_list[0]
 	context = {
         'school_name': school_name,
@@ -111,25 +112,43 @@ def visa(request, school_name):
         ],
 		'country': report.user_country,
 		'country_code': report.user_country_code,
-        'update_date': str(timezone.now())
+        'update_date': update_date
     }
 	return render(request, 'forums/visa.html', context)
 
+from django.db.models import Count
+
 def dorm(request, school_name):
-	report_list = Report.objects.filter(user_university=school_name)
+	report_list = Report.objects.filter(user_university=school_name).annotate(count_now_dorm_name=Count('now_dorm_name',distinct=True)).order_by('-count_now_dorm_name')[:5]
+
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
-	webSite = Report.objects.filter(user_university=school_name).exclude(now_website__exact='').filter(now_website__startswith='http')[0].now_website
+	webSite = Report.objects.filter(user_university=school_name).exclude(now_website__exact='').filter(now_website__startswith='http')
+	if(webSite):
+		webSite = webSite[0].now_website
+	else:
+		webSite = ""
 	
+	update_date = Report.objects.filter(user_university=school_name).exclude(now_etc__exact='').aggregate(Max('user_duration'))
 	report = report_list[0]
+
+	def name_filter(x):
+		if(x):
+			if(x == '-'):
+				pass
+			else:
+				return x
+		else:
+			pass
+
 	context = {
         'school_name': school_name,
-		'dorm_list': list(set(list(filter(None, [report.now_dorm_name.strip() for report in report_list])))),
+		'dorm_list': list(set(list(filter(name_filter, [report.now_dorm_name.strip() for report in report_list])))),
 		'dorm_cost': report.now_cost,
 		'dorm_link': webSite,
 		'dorm_characteristics': report.now_etc,
-        'update_date': str(timezone.now()),
+        'update_date': update_date,
 		'country': report.user_country
     }
 	return render(request, 'forums/dorm.html', context)
@@ -139,7 +158,7 @@ def etc_pre(request, school_name):
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
 	
-	update_date = Report.objects.filter(user_university=school_name).aggregate(Max('user_duration'))
+	update_date = Report.objects.filter(user_university=school_name).exclude(pre_etc__exact='').aggregate(Max('user_duration'))
 	report = report_list[0]
 	context = {
         'school_name': school_name,
