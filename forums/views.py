@@ -135,10 +135,10 @@ def dorm(request, school_name):
 
 	def name_filter(x):
 		if(x):
-			if(x == '-'):
+			if(x.strip() == '-'):
 				pass
 			else:
-				return x
+				return x.strip()
 		else:
 			pass
 
