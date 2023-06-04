@@ -70,6 +70,8 @@ def select(request):
 
     return render(request, 'common/school_select.html', {'form': form})
 
+def preview(request):
+    return render(request, 'common/school_select_notuser.html')
 
 class CustomLoginView(LoginView):
     def get_success_url(self):

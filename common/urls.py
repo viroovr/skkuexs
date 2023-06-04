@@ -9,6 +9,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('signup/', views.signup, name='signup'),
     path('select/', views.select, name='select'),
+    path('preview/', views.preview, name='preview'),
+#     path('preview_redirect/', views.preview_redirect, name='preview_redirect'),
 
     path('kakao/login/', views.kakao_login, name='kakao_login'),
     path('kakao/login/callback/', views.kakao_callback, name='kakao_callback'),

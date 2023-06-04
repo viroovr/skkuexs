@@ -33,9 +33,15 @@
           <div class="preparation_item_title">
             홈페이지 링크
           </div>
+          {% if dorm_link == '' %}
+          <div class="dorm_detail_list">
+            (없음)
+          </div>
+          {% else %}
           <div class="dorm_detail_list" id="dorm_link">
             [링크]
           </div>
+          {% endif %}
         </div>
         <div class="dorm_content">
           <div class="dorm_item_title">
@@ -47,7 +53,7 @@
         </div>
       </div>
       <div class="preparation_footer">
-        2023.04 Updated
+        {{update_date.user_duration__max}} Updated
       </div>
     </div>
     </div>
