@@ -145,7 +145,7 @@ def dorm(request, school_name):
 	context = {
         'school_name': school_name,
 		'dorm_list': list(set(list(filter(name_filter, [report.now_dorm_name.strip() for report in report_list])))),
-		'dorm_cost': report.now_cost,
+		'dorm_cost': max([report.now_cost for report in report_list],key=len),
 		'dorm_link': webSite,
 		'dorm_characteristics': report.now_etc,
         'update_date': update_date,
