@@ -38,6 +38,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.views import LoginView
 from .forms import SchoolForm
 from .models import Profile
+from django.core.exceptions import ObjectDoesNotExist
 
 state = getattr(settings, 'STATE')
 BASE_URL = getattr(settings, 'BASE_URL')
@@ -70,8 +71,24 @@ def select(request):
 
     return render(request, 'common/school_select.html', {'form': form})
 
+
+def profile_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        try:
+            if (request.user.is_anonymous or request.user.profile):
+                return render(request, 'forums/profile_required.html')
+                # profile = request.user.profile
+            else:
+                return view_func(request, *args, **kwargs)
+        except ObjectDoesNotExist:
+            return render(request, 'forums/profile_required.html')
+
+    return wrapper
+
+
 def preview(request):
     return render(request, 'common/school_select_notuser.html')
+
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
@@ -110,7 +127,7 @@ def social_login(request, email, access_token, code, domain):
 
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
         login(request, user, backend=user.backend)  # 로그인
-            
+
         return redirect(f'/forums/{user.profile.school_name}')
     except (User.DoesNotExist, Profile.DoesNotExist):
 

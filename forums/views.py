@@ -4,7 +4,7 @@ from .models import Report, Article
 import requests
 import json
 from django.db.models import Max
-
+from common.views import profile_required
 
 def main(request, school_name):
 	report_list = Report.objects.filter(user_university=school_name)
@@ -76,6 +76,7 @@ def uni_review(request, school_name):
 	}
 	return render(request, 'forums/uni_review.html', context)
 
+@profile_required
 def community(request, school_name):
 	article_list = Article.objects.filter(user_university=school_name)
 
