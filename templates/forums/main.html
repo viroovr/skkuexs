@@ -58,9 +58,11 @@
   </div>
 </div>
 <div class=area4>
-  <div class="schoolimg" style="background-image:url(/static/images/Harvard1.jpg);"></div>
-  <div class="schoolimg" style="background-image:url(/static/images/Harvard2.jpg);"></div>
-  <div class="schoolimg" style="background-image:url(/static/images/Harvard3.jpg);"></div>
+  {% for image_url in image_urls %}
+  <div class="schoolimg" style="background-image:url({{ image_url }});"></div>
+  {% comment %} <div class="schoolimg" style="background-image:url(/static/images/Harvard2.jpg);"></div>
+  <div class="schoolimg" style="background-image:url(/static/images/Harvard3.jpg);"></div> {% endcomment %}
+  {% endfor %}
 </div>
 <div class=area5>
 
