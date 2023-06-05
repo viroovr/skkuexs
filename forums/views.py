@@ -135,10 +135,7 @@ def visa(request, school_name):
         'school_name': school_name,
         'visa_type': report.visa_type,
         'visa_period': report.visa_issuance_time,
-        'visa_application_process': [
-			report.visa_issuance_procedure,
-			report.pre_departure_preparation
-        ],
+        'visa_application_process': [f'{r}.' for r in report.visa_issuance_procedure.split('.') if r],
 		'country': report.country,
 		'country_code': report.country_code,
         'update_date': update_date
@@ -158,7 +155,7 @@ def dorm(request, school_name):
 	report = report_list[0]
 	context = {
         'school_name': school_name,
-		'dorm_list': list(set(r.dorm_name.strip() for r in report_list if r.dorm_name.strip() not in ("", "-"))),
+		'dorm_list': sorted(set(r.dorm_name.strip() for r in report_list if r.dorm_name.strip() not in ("", "-")), key=len),
 		'dorm_cost': max([report.dorm_cost for report in report_list], key=len),
 		'dorm_link': web_site_list[0].dorm_website if web_site_list else "",
 		'dorm_characteristics': report.dorm_etc,
@@ -200,7 +197,7 @@ def etc_uni(request, school_name):
 
 	# for report in report_list:
 	#    etc_uni.append({ 'rank': report.rank,
-	#                   'date': report.user_duration,
+	#                   'date': report.semester,
 	#                   'content': report.etc_feel
 	#                   })
 	context = {
@@ -215,7 +212,7 @@ def etc_uni(request, school_name):
 		]
 		# 'unilife_info': [{
 		#       'content': report.pre_etc,
-		#       'date': report.user_duration,
+		#       'date': report.semester,
 		#    }
 		#    for report in report_list],
 		# 'update_date': update_date,
