@@ -1,0 +1,65 @@
+{% extends "forums/base_for_forums.html" %}
+{% block content %}
+<div class="community_block">
+  <div class="preparation_header">
+    <div class="preparation_filter_box"></div>
+    <div class="preparation_title_box">
+        <div class="preparation_title">기타정보</div>
+    </div>
+    <div class="preparation_filter_box">학교생활</div>
+  </div>
+  <div class="preparation_content">
+    <div class="dorm_item_box">
+      <div class="etcuni_container">
+        <div class="dorm_content">
+          <div class="dorm_item_title">
+            학교가는법
+          </div>
+          <div class="uni_map">
+            <iframe  src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1243936.6144630748!2d-2.1289532505962874!3d52.48703496665936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e3!4m5!1s0x48767234cdc56de9%3A0x8fe7535543f64167!2sHeathrow%20Airport%20(LHR)%2C%20Longford%20TW6%2C%20United%20Kingdom!3m2!1d51.4700223!2d-0.45429549999999996!4m5!1s0x4879827871f2884f%3A0xc9ec1e8b34c33663!2sSheffield%20Uni%2C%20Sheffield%2C%20UK!3m2!1d53.3813502!2d-1.4884229!5e0!3m2!1sen!2skr!4v1685938148044!5m2!1sen!2skr" width= "400"
+            height= "400"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          
+            {% comment %} 
+            1) API는 요금 청구한느듯
+            https://developers.google.com/maps/documentation/javascript/directions?hl=ko  
+            2) 크롤링해서 검색 후 가져오는 방법?! 
+            {% endcomment %}
+            
+          </div>
+        </div>
+        <div class="etcuni_content">
+          <div class="etcuni_title">
+            학교생활 유용정보
+          </div>
+          {% for field in tip %}
+          <div class="etcuni_box">
+            <div class="etcuni_box_innter">
+            <div class="etcuni_box_item">
+                {{field}}
+            </div>
+          </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="preparation_footer">
+        2023.04 Updated
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  
+    $(function() {
+      // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+      $("#whole").css("background-color","#f5f5f7")
+      $("#whole").css("height","auto")     
+      $("#dorm_link").on("click",function(){
+        window.open('{{dorm_link}}')
+      })
+    })
+  </script>
+{% endblock %}
