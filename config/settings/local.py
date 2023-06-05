@@ -2,6 +2,7 @@ from .base import *
 
 ALLOWED_HOSTS = []
 BASE_URL = 'http://127.0.0.1:8000/'
+CSRF_TRUSTED_ORIGINS = [BASE_URL]
 INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'skkuexs.apps.SkkuexsConfig',

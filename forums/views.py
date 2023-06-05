@@ -6,6 +6,7 @@ from .models import Report, Article
 import requests
 from statistics import mean
 from django.conf import settings
+from django.utils import timezone
 
 SEARHCH_ENGINE_API_KEY = getattr(settings, 'SEARCH_ENGINE_API_KEY')
 OPENCAGE_API_KEY = getattr(settings, 'OPENCAGE_API_KEY')
@@ -48,7 +49,7 @@ def main(request, school_name):
 		'introduction': report.introduction,
 		'wordCloudUrl':report.word_cloud_url,
 		'rank': mean(report.satisfaction for report in report_list),
-        'image_urls': search_google_images(school_name)
+        'image_urls': "" #돈나갈까봐 잠시 꺼둠 / search_google_images(school_name)
 	}
 	return render(request, 'forums/main.html', context)
 
@@ -106,8 +107,22 @@ def uni_review(request, school_name):
 	}
 	return render(request, 'forums/uni_review.html', context)
 
+from django.http import HttpResponse 
+
 @community_profile_required
 def community(request, school_name):
+	if request.method == 'POST':
+		if request.POST['community_title'] and request.POST['community_article']:
+			article = Article(
+								author=request.user,
+								university=school_name,
+								title=request.POST['community_title'],
+								content=request.POST['community_article'],
+								date=timezone.now(),
+								recommand=0,
+								comment=""
+							)
+			article.save()
 	article_list = Article.objects.filter(university=school_name)
 
 	community = []
@@ -137,7 +152,8 @@ def visa(request, school_name):
         'school_name': school_name,
         'visa_type': report.visa_type,
         'visa_period': report.visa_issuance_time,
-        'visa_application_process': [f'{r}.' for r in report.visa_issuance_procedure.split('.') if r],
+        # 'visa_application_process': [f'{r}.' for r in report.visa_issuance_procedure.split('.') if r],
+		'visa_application_process': report.visa_issuance_procedure,
 		'country': report.country,
 		'country_code': report.country_code,
         'update_date': update_date
@@ -158,9 +174,9 @@ def dorm(request, school_name):
 	context = {
         'school_name': school_name,
 		'dorm_list': sorted(set(r.dorm_name.strip() for r in report_list if r.dorm_name.strip() not in ("", "-")), key=len),
-		'dorm_cost': max([report.dorm_cost for report in report_list], key=len),
+		'dorm_cost': report.dorm_cost,
 		'dorm_link': web_site_list[0].dorm_website if web_site_list else "",
-		'dorm_characteristics': report.dorm_etc,
+		'dorm_characteristics': ".".join(report.dorm_etc.split('.')[:3]),
         'update_date': update_date,
 		'country': report.country
     }

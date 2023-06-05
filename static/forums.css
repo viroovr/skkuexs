@@ -594,6 +594,7 @@
     line-height: normal;
     color: #000;
     margin-top: 0.3rem;
+    margin-right: 3rem;
 }
 
 .preparation_footer {
@@ -624,11 +625,11 @@
 }
 
 .dorm_content {
-    width: 19%;
+    width: 32%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 5rem 0;
+    margin: 0 2rem 0;
 }
 
 .dorm_store {

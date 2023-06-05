@@ -8,9 +8,10 @@
 
       <div id="myModal" class="modal">
         <div class="modal-content">
-          <form id="popSection">
+          <form id="popSection" method="post" action="">
+            {% csrf_token %}
             <div class="text-section">
-              <input type="text" id="pop_title" placeholder="제목" />
+              <input type="text" id="pop_title" placeholder="제목" name="community_title"/>
 
               <textarea
                 name="community_article"
@@ -89,13 +90,10 @@
               // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
               $("#whole").css("background-color","#f5f5f7")
               $("#whole").css("height","auto")
-              console.log('{{community.1.title}}')
             })
 
         var modal = document.getElementById("myModal");
         var btn = document.getElementById("myBtn");
-
-
 
           btn.onclick = function() {
             modal.style.display = "block";
@@ -107,8 +105,6 @@
             }
           } {% endcomment %}
 
-
-
           /* 글자수세기 */
     let textArea = document.getElementById("pop_textbox");
     let characterCounter = document.getElementById("charCount");
@@ -118,18 +114,14 @@
         let numOfEnteredChars = textArea.value.length;
         counter = numOfEnteredChars;
         characterCounter.textContent = numOfEnteredChars + "/200";
-
-        if (counter>180) {
-          characterCounter.style.color="red";
-        }
+		characterCounter.style.color = counter > 180 ? "red" : "black";
     }
 
     textArea.addEventListener("input", countCharacters);
 
-
     function auto_grow(element) {
         element.style.height = "5px";
-        element.style.height =(element.scrollHeight)+"px";
+        element.style.height = (element.scrollHeight) + "px";
     }
 
   </script>

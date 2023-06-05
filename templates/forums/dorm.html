@@ -28,7 +28,10 @@
             평균 비용
           </div>
           <div class="dorm_detail_list">
+            {% if dorm_cost == 'nan' %}
+            {% else %}
             {{dorm_cost}}
+            {% endif %}
           </div>
           <div class="preparation_item_title">
             홈페이지 링크
@@ -48,7 +51,10 @@
             특징
           </div>
           <div class="dorm_detail_parahraph">
+            {% if dorm_characteristics == 'nan' %}
+            {% else %}
             {{dorm_characteristics}}
+            {% endif %}
           </div>
         </div>
       </div>
