@@ -65,4 +65,4 @@ class Article(models.Model):
 	content = models.TextField(null=True, blank=True)
 	date = models.DateTimeField(null=True, blank=True, auto_now_add=True)
 	recommand = models.IntegerField(null=True, blank=True)
-	comment = models.IntegerField(null=True, blank=True)
+	comment = models.TextField(null=True, blank=True)

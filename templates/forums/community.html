@@ -95,8 +95,6 @@
         var modal = document.getElementById("myModal");
         var btn = document.getElementById("myBtn");
 
-
-
           btn.onclick = function() {
             modal.style.display = "block";
           }
@@ -107,8 +105,6 @@
             }
           } {% endcomment %}
 
-
-
           /* 글자수세기 */
     let textArea = document.getElementById("pop_textbox");
     let characterCounter = document.getElementById("charCount");
@@ -118,18 +114,14 @@
         let numOfEnteredChars = textArea.value.length;
         counter = numOfEnteredChars;
         characterCounter.textContent = numOfEnteredChars + "/200";
-
-        if (counter>180) {
-          characterCounter.style.color="red";
-        }
+		characterCounter.style.color = counter > 180 ? "red" : "black";
     }
 
     textArea.addEventListener("input", countCharacters);
 
-
     function auto_grow(element) {
         element.style.height = "5px";
-        element.style.height =(element.scrollHeight)+"px";
+        element.style.height = (element.scrollHeight) + "px";
     }
 
   </script>
