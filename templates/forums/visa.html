@@ -23,7 +23,10 @@
                     비자 종류
                 </div>
                 <div class="preparation_item_subtitle">
+                    {% if visa_type == 'nan' %}
+                    {% else %}
                     {{visa_type}}
+                    {% endif %}
                 </div>
             </div>
             <div class="preparation_up_right">
@@ -31,19 +34,23 @@
                     발급 소요기간
                 </div>
                 <div class="preparation_item_subtitle">
+                    {% if visa_period == 'nan' %}
+                    {% else %}
                     {{visa_period}}
+                    {% endif %}
                 </div>
             </div>
         </div>
         <div class="preparation_item_title">
-            비자 신청절차
+            비자 신청방법
         </div>
         <div class="preparation_down">
-            {% for field in visa_application_process %}
             <div class="preparation_list">
-                {{forloop.counter}}. {{field}}
+                {% if visa_application_process == 'nan' %}
+                {% else %}
+                {{visa_application_process}}
+                {% endif %}
             </div>
-            {% endfor %}
         </div>
         <div class="preparation_footer">
           {{update_date.semester__max}} Updated
