@@ -8,6 +8,8 @@ from statistics import mean
 from django.conf import settings
 
 SEARHCH_ENGINE_API_KEY = getattr(settings, 'SEARCH_ENGINE_API_KEY')
+OPENCAGE_API_KEY = getattr(settings, 'OPENCAGE_API_KEY')
+AIRLAB_API_KEY = getattr(settings, 'AIRLAB_API_KEY')
 SEARCH_ENGINE = getattr(settings, 'SEARCH_ENGINE')
 
 def search_google_images(keyword):
@@ -185,6 +187,65 @@ def etc_pre(request, school_name):
     }
 	return render(request, 'forums/etc_pre.html', context)
 
+from geopy.distance import geodesic
+def search_airport_nearby(school_name):
+    # OpenCage Geocoding API 설정
+    geocoding_api_key = OPENCAGE_API_KEY
+    geocoding_url = f'https://api.opencagedata.com/geocode/v1/json?key={geocoding_api_key}'
+
+    # 학교 이름을 기반으로 주소를 검색
+    params = {
+        'q': school_name,
+        'limit': 1
+    }
+    response = requests.get(geocoding_url, params=params)
+    data = response.json()
+    if 'results' in data and len(data['results']) > 0:
+        # 학교의 위도와 경도 추출
+        latitude = data['results'][0]['geometry']['lat']
+        longitude = data['results'][0]['geometry']['lng']
+        country_code = data['results'][0]['components']['country_code']
+        airport_code_url = f"https://airlabs.co/api/v9/airports?country_code={country_code}&api_key={AIRLAB_API_KEY}"
+        response = requests.get(airport_code_url)
+        # print(country_code)
+        # print(response.json())
+        # print(response.json()['response'][0]['iata_code'])
+        iata_code = response.json()['response'][0]['iata_code']
+        # print(iata_code) 
+        # 주변 항공 검색
+        airport_search_api_url = 'https://api.opencagedata.com/geocode/v1/json'
+        airport_search_params = {
+            'q': f'{school_name}, {iata_code}',
+            'limit': 5,  # 주변 항공 중 최대 5개 검색
+            'proximity': f'{latitude},{longitude}',
+            'no_annotations': 1,
+            'key': geocoding_api_key
+        }
+        airport_response = requests.get(airport_search_api_url, params=airport_search_params)
+        airport_data = airport_response.json()
+        # print(airport_data)
+		
+        if 'results' in airport_data:
+            # airports = []
+            nearest_airport = None
+            shortest_distance = None
+            for result in airport_data['results']:
+				
+                airport_lat = result['geometry']['lat']
+                airport_lng = result['geometry']['lng']
+                distance = geodesic((latitude, longitude), (airport_lat, airport_lng)).km
+                
+                if shortest_distance is None or distance < shortest_distance:
+                    shortest_distance = distance
+                    nearest_airport = [airport_lat, airport_lng]
+            # airports.append((airport_lat,airport_lng))
+
+            # print(nearest_airport[0], nearest_airport[1])
+            return latitude, longitude, nearest_airport[0], nearest_airport[1]
+
+    return None
+
+
 def etc_uni(request, school_name):
 	# report_list = Report.objects.filter(university=school_name).exclude(etc_uni__exact='').order_by('-???')
 
@@ -200,6 +261,30 @@ def etc_uni(request, school_name):
 	#                   'date': report.semester,
 	#                   'content': report.etc_feel
 	#                   })
+	# address = school_name
+	# url = f'https://nominatim.openstreetmap.org/search?q={address}&format=json&limit=1'
+	# response = requests.get(url)
+	# if response.status_code == 200:
+	# 	data = response.json()
+	# 	print(data)
+	# 	if data:
+	# 		school_latitude = float(data[0]['lat'])
+	# 		school_longitude = float(data[0]['lon'])
+	# 		# 위도(latitude)와 경도(longitude)를 사용하여 필요한 작업 수행
+	latitude, longitude, airport_lat, airport_lng = search_airport_nearby(school_name)
+	# print(latitude, longitude, airport_lat, airport_lng) 
+
+	# url = f'https://nominatim.openstreetmap.org/search?q={address}&format=json&limit=1'
+	# response = requests.get(url)
+	# if response.status_code == 200:
+	# 	data = response.json()
+	# 	print(data)
+	# 	if data:
+	# 		airport_latitude = float(data[0]['lat'])
+	# 		airport_longitude = float(data[0]['lon'])
+	# 		# 위도(latitude)와 경도(longitude)를 사용하여 필요한 작업 수행
+			
+	# print(airport_latitude, airport_longitude)
 	context = {
 		'school_name': school_name,
 		'etc_uni_list': [],
@@ -209,7 +294,12 @@ def etc_uni(request, school_name):
 				"학교 기숙사 주관으로 열리는 다양한 무료행사들이 많습니다",
 				"학기초 열리는 동아리 Fair에서 들어볼 동아리 선택할 수 있어요",
 				"Give it A Go라는 1회 체험 프로그램도 있답니다"
-		]
+		],
+		"school_latitude": latitude, 
+		"school_longitude": longitude,
+		"airport_lat": airport_lat, 
+		"airport_lng": airport_lng, 
+
 		# 'unilife_info': [{
 		#       'content': report.pre_etc,
 		#       'date': report.semester,
