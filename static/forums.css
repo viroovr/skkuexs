@@ -51,7 +51,7 @@
     border: solid 2px #c4c4c4;
     width: 17.938rem;
     height: 3rem;
-    margin-left: 16.2rem;
+    /* margin-left: 16.2rem; */
     margin-right: 5.3rem;
     margin-top: 0.8rem;
     font-size: 1.2rem;
@@ -438,7 +438,7 @@
     height: auto;
 
   }
-      .course_item_rank{
+.course_item_rank{
 
       }
 
@@ -753,3 +753,372 @@
     margin-right: 1rem;
     margin-bottom: 0.3rem;
 }
+
+.etcuni_container {
+    display: flex;
+    flex-direction: row;
+    padding-left: 2%;
+}
+
+.etcuni_content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 3rem 0 7rem;
+}
+
+
+.etcuni_title {
+    width: 100%;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    color: #000;
+    margin-top: 5.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.etcpre_box {
+    width: 100%;
+    height: auto;
+    padding: 8px 10px;
+    border-radius: 17px;
+    box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.25);
+    background-color: #b8d8be;
+    margin-top: 1.2rem;
+}
+
+.etcpre_box_innter {
+    width: 100%;
+    height: 100%;
+    margin: 0 5px 5px 0;
+    border-radius: 13px;
+    box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.etcpre_box_item {
+    flex-grow: 1;
+    width: 604px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.8px;
+    text-align: left;
+    color: #000000;
+    margin: 1rem 1rem 0.2rem 1rem;
+}
+
+.etcpre_box_footer {
+    text-align: right;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    color: #868686;
+    margin-right: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.uni_map {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.map_road{
+    width: 25.438rem;
+    height: 21.125rem;
+    flex-grow: 0;
+}
+
+.etcuni_box {
+    width: 100%;
+    height: auto;
+    padding: 8px 10px;
+    border-radius: 17px;
+    box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.25);
+    background-color: #e1e1e1;
+    margin-top: 1.2rem;
+}
+
+.etcuni_box_item {
+    flex-grow: 1;
+    width: 604px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.8px;
+    text-align: left;
+    color: #000000;
+    margin: 1rem;
+}
+
+.etcuni_box_innter {
+    width: 100%;
+    height: 100%;
+    margin: 0 5px 5px 0;
+    border-radius: 13px;
+    box-shadow: 2px 2px 7px 0 rgba(0, 0, 0, 0.25);
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+.community_write_box {
+    border-radius: 41px;
+    height: 3rem;
+    margin-left: 16.2rem;
+    margin-right: 1rem;
+    margin-top: 0.8rem;
+    font-size: 1.2rem;
+    font-family: Inter;
+    color: #9b9b9b;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+}
+.write_btn{
+    width:7rem;
+    height: 3rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: -0.1rem;
+    background-color: #FFCC00 ;
+    transition-duration: 0.4s;
+    border: solid 2px #c4c4c4;
+    border-radius: 41px;
+  cursor: pointer;
+}
+
+.write_btn:hover {
+    background-color: #c9a105e4;
+    color: white;
+  }
+
+
+
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+  
+ /* 닫기버튼 */
+  /* .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  } */
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  :root { 
+    --green-maincolor: #217e12;
+    --lightgreen-accent-color: #d8e0c4;
+    --darkgreen-accent-color: #185c0d;
+    --bg-color: white;  
+    --lightgray-accent-color: #DADADA;
+    --main-font: Arial;
+  }
+  .pop_btn_reply { 
+    color: var(--green-maincolor);
+    background-color: var(--bg-color);
+    font-size: 1rem;
+  }
+  
+  #popSection { 
+    border-color: var(--lightgray-accent-color);
+    border-style: solid;
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    position: relative;
+    margin: auto;
+  }
+  
+  .icon-section { 
+    display: inline-block;
+    width: 50px;
+    padding-right: 10px;
+    position: relative;
+  }
+  
+  .text-section { 
+    margin-right: 40p;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .profile-icon{ 
+    width: 60px;
+    position: absolute;
+    bottom: 140px;
+    right: 15px;
+    border-radius: 50%;
+  }
+  
+  .tweet-btn-visibility {
+    margin-bottom: 15px;
+    padding: 3px 5px;
+    display: block;
+    border-radius: 10px;
+    border-color: var(--lightgray-accent-color);
+    border-style: solid;
+  }
+  .tweet-btn-visibility img { 
+    width: 10px;
+    padding: 0px 3px 0px 3px;
+    color: var(--green-maincolor);
+  }
+  .tweet-btn-visibility:hover { 
+    background-color: var(--lightgreen-accent-color);
+  }
+  
+  .pop_btn_reply {
+    border-radius: 10px;
+    border-style: none;
+    position: relative;
+    width:100%;
+    margin-top: 0.625rem;
+    text-align: left;
+  }
+  
+  .pop_btn_reply img { 
+    width: 15px;
+    margin-right: 3px;
+    color: var(--green-maincolor);
+  }
+  
+  .pop_btn_reply:hover { 
+    background-color: var(--lightgreen-accent-color);
+  }
+  
+  #pop_title{
+    font-family: 'Noto Sans KR', sans-serif;
+    right: 11.25rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-width: 0rem;
+  width: 100%;
+  border-width: 0rem;
+  outline: none;
+  display: block;
+  border-bottom:solid 0.1rem #b3b3b3;
+  }
+
+  #pop_textbox { 
+    font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+    width: 100%;
+    min-height: 7rem;
+    border-width: 0rem;
+    outline: none;
+    display: block;
+    overflow: hidden;
+    resize: none;
+   margin-top:1rem;
+  }
+  
+  
+  
+  .pop_bottom {
+    margin-top: 20px auto 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+  }
+
+  .pop_images{
+text-align: left;
+  }
+  .pop_bottom_btn{
+    text-align: right;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  #charCount { 
+    position: relative;
+    /* left: 75px; */
+    font-size: 1.2rem;
+    color: var(--green-maincolor);
+    margin-right:1rem;
+   
+  }
+  
+  .popButton {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    position: relative;
+    color: white;
+    background-color: var(--green-maincolor);
+    border-style: none;
+    border-radius: 2rem;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    cursor: pointer;
+  } 
+  
+  .popButton:hover { 
+   background-color: var(--darkgreen-accent-color);
+  }
+  
+  .popform_divider { 
+    color: var(--lightgray-accent-color);
+    border-style: solid none none none;
+  }
+  
+  .uploadimg_icons { 
+   position: relative;
+   /* right: 85px; */
+   /* top: 10px; */
+   height: 1.5rem;
+   /* padding: 5px; */
+  }
+  
+  .uploadimg_icons:hover { 
+  background-color: var(--lightgreen-accent-color);
+  }
