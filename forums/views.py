@@ -6,6 +6,7 @@ from .models import Report, Article
 import requests
 from statistics import mean
 from django.conf import settings
+from django.utils import timezone
 
 SEARHCH_ENGINE_API_KEY = getattr(settings, 'SEARCH_ENGINE_API_KEY')
 SEARCH_ENGINE = getattr(settings, 'SEARCH_ENGINE')
@@ -108,27 +109,35 @@ from django.http import HttpResponse
 
 @community_profile_required
 def community(request, school_name):
-	if(request.method == 'POST'):
-		print(school_name)
-		return HttpResponse(request)
-	else:
-		article_list = Article.objects.filter(university=school_name)
+	if request.method == 'POST':
+		if request.POST['community_title'] and request.POST['community_article']:
+			article = Article(
+								author=request.user,
+								university=school_name,
+								title=request.POST['community_title'],
+								content=request.POST['community_article'],
+								date=timezone.now(),
+								recommand=0,
+								comment=""
+							)
+			article.save()
+	article_list = Article.objects.filter(university=school_name)
 
-		community = []
-		for article in article_list:
-			community.append({ 'title': article.title,
-								'content': article.content,
-								'date': article.date.date,
-								'recommand': article.recommand,
-								'comment': article.comment
-								})
-		report_list = Report.objects.filter(university=school_name)
-		context = {
-			'school_name': school_name,
-			'community': community,
-			'country': report_list[0].country if report_list else 'South Korea'
-		}
-		return render(request, 'forums/community.html', context)
+	community = []
+	for article in article_list:
+		community.append({ 'title': article.title,
+							'content': article.content,
+							'date': article.date.date,
+							'recommand': article.recommand,
+							'comment': article.comment
+							})
+	report_list = Report.objects.filter(university=school_name)
+	context = {
+		'school_name': school_name,
+		'community': community,
+		'country': report_list[0].country if report_list else 'South Korea'
+	}
+	return render(request, 'forums/community.html', context)
 
 def visa(request, school_name):
 	report_list = Report.objects.filter(university=school_name)
