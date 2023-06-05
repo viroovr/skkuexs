@@ -38,7 +38,6 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.views import LoginView
 from .forms import SchoolForm
 from .models import Profile
-from django.core.exceptions import ObjectDoesNotExist
 
 state = getattr(settings, 'STATE')
 BASE_URL = getattr(settings, 'BASE_URL')
@@ -71,43 +70,8 @@ def select(request):
 
     return render(request, 'common/school_select.html', {'form': form})
 
-
-def community_profile_required(view_func):
-    def wrapper(request, *args, **kwargs):
-        try:
-            if (request.user.is_anonymous or not request.user.profile):
-                print("hee")
-                return render(request, 'forums/community_profile_required.html')
-                # profile = request.user.profile
-            else:
-                print("heeaa")
-                return view_func(request, *args, **kwargs)
-        except ObjectDoesNotExist:
-            print("hevabaa")
-            return render(request, 'forums/community_profile_required.html')
-
-    return wrapper
-
-
-def check_profile(view_func):
-    def wrapper(request, *args, **kwargs):
-        try:
-            if (request.user.is_authenticated):
-                profile = request.user.profile  # 사용자의 학교 이름을 가져옴 (가정)
-                school_name = profile.school_name
-                url = f"/forums/{school_name}"
-                return redirect(url)
-            else:
-                return view_func(request, *args, **kwargs)
-        except ObjectDoesNotExist:
-            return view_func(request, *args, **kwargs)
-
-    return wrapper
-
-
 def preview(request):
     return render(request, 'common/school_select_notuser.html')
-
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
@@ -116,28 +80,6 @@ class CustomLoginView(LoginView):
         school_name = profile.school_name
         url = f"/forums/{school_name}"
         return url
-
-    def get(self, request, *args, **kwargs):
-        # 프로필 체크
-        try:
-            if (request.user.is_authenticated):
-                school_name = self.request.user.profile.school_name
-                url = f'/forums/{school_name}'
-                return redirect(url)  # 적절한 URL 이름으로 수정
-        # except ObjectDoesNotExist:
-        except Profile.DoesNotExist:
-            return redirect('common:select')
-        except User.DoesNotExist:
-            print("hi")
-            pass
-        # 프로필이 없는 경우, 기본 로그인 화면 표시
-        return super().get(request, *args, **kwargs)
-        # try:
-        #     if (self.request.user.profile)
-
-        # except ObjectDoesNotExist:
-        #     url = f"/forums/{school_name}"
-        #         return url
 
 
 def social_login(request, email, access_token, code, domain):
@@ -168,7 +110,7 @@ def social_login(request, email, access_token, code, domain):
 
         user.backend = 'allauth.account.auth_backends.AuthenticationBackend'
         login(request, user, backend=user.backend)  # 로그인
-
+            
         return redirect(f'/forums/{user.profile.school_name}')
     except (User.DoesNotExist, Profile.DoesNotExist):
 
@@ -216,7 +158,6 @@ def signup(request):
     # return render(request, 'common/school_select.html')
 
 
-@check_profile
 def kakao_login(request):
     rest_api_key = getattr(settings, 'KAKAO_REST_API_KEY')
     return redirect(
@@ -259,7 +200,6 @@ def kakao_callback(request):
     return social_login(request, email, access_token, code, domain="kakao")
 
 
-@check_profile
 def google_login(request):
     scope = "https://www.googleapis.com/auth/userinfo.email"
     client_id = getattr(settings, 'SOCIAL_AUTH_GOOGLE_CLIENT_ID')
@@ -312,7 +252,6 @@ def google_callback(request):
     return social_login(request, email, access_token, code, domain="google")
 
 
-@check_profile
 def naver_login(request):
     client_id = getattr(settings, 'SOCIAL_AUTH_NAVER_CLIENT_ID')
     # print("ho")
