@@ -1,64 +1,137 @@
-{% extends "forums/base_for_forums.html" %}
-{% block content %}
-
+{% extends "forums/base_for_forums.html" %} {% block content %}
 
 <div class="community_block">
   <div class="community_header">
     <div class="community_title">게시판</div>
+    <div class="community_write_box">
+      <button id="myBtn" class="write_btn">글쓰기</button>
+
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <form id="popSection">
+            <div class="text-section">
+              <input type="text" id="pop_title" placeholder="제목" />
+
+              <textarea
+                name="community_article"
+                id="pop_textbox"
+                placeholder="내용을 작성해주세요"
+                maxlength="300"
+                oninput="auto_grow(this)"
+              ></textarea>
+
+              <button class="pop_btn_reply">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/52/52349.png"
+                  alt=""
+                />
+                모두 댓글 작성가능
+              </button>
+
+              
+                <hr class="popform_divider" />
+
+                <div class="pop_bottom">
+                  <div class="pop_images">
+                    <img class="uploadimg_icons" src="https://cdn-icons-png.flaticon.com/512/739/739249.png" alt=""/>
+                <img class="uploadimg_icons" src="https://cdn-icons-png.flaticon.com/512/739/739249.png" alt=""/>
+                  </div>
+
+                  <div class="pop_bottom_btn">
+                <span id="charCount">0/200</span>
+                <button class="popButton" type="submit">등록</button>
+                <button class="popButton close" type="submit">취소</button>
+                  </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="community_search_box">
-      <input type="text" class="community_search" placeholder="검색어 입력"/>
+      <input type="text" class="community_search" placeholder="검색어 입력" />
       <div class="community_search_icon_box">
-        <img class="community_search_icon" src="/static/images/search_icon.png"/>
+        <img
+          class="community_search_icon"
+          src="/static/images/search_icon.png"
+        />
       </div>
     </div>
   </div>
-  <div class="community_filter_box">
-    정렬 | 최신순
-  </div>
-  {% for field in community %}
-  {% if forloop.counter|add:2|divisibleby:3 %}
+  <div class="community_filter_box">정렬 | 최신순</div>
+  {% for field in community %} {% if forloop.counter|add:2|divisibleby:3 %}
   <div class="community_content">
-  {% endif %}
-    {% if field.title == "!hidden" %}
+    {% endif %} {% if field.title == "!hidden" %}
     <div class="community_item_box" style="visibility: hidden">
-    {% else %}
-    <div class="community_item_box">
-    {% endif %}
-      <div class="community_item_title">
-        {{field.title}}
-      </div>
-      <div class="community_item_content">
-        {{field.content}}
-      </div>
-      <div class="community_item_below">
-        <div class="community_item_date">
-          {{field.date}}
-        </div>
-        <div class="community_item_below_fill"></div>
-        <img src="/static/images/Facebook Like.png"/>
-        <div class="community_item_below_count">
-          {{field.recommand}}
-        </div>
-        <img src="/static/images/Comments.png"/>
-        <div class="community_item_below_count">
-            {{field.comment}}
+      {% else %}
+      <div class="community_item_box">
+        {% endif %}
+        <div class="community_item_title">{{field.title}}</div>
+        <div class="community_item_content">{{field.content}}</div>
+        <div class="community_item_below">
+          <div class="community_item_date">{{field.date}}</div>
+          <div class="community_item_below_fill"></div>
+          <img src="/static/images/Facebook Like.png" />
+          <div class="community_item_below_count">{{field.recommand}}</div>
+          <img src="/static/images/Comments.png" />
+          <div class="community_item_below_count">{{field.comment}}</div>
         </div>
       </div>
+      {% if forloop.counter|divisibleby:3 %}
     </div>
-  {% if forloop.counter|divisibleby:3 %}
+    {% endif %} {% endfor %}
   </div>
-  {% endif %}
-  {% endfor %}
-</div>
-{% endblock %}
-{% block script %}
-<script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
-  
-    $(function() {
-      // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
-      $("#whole").css("background-color","#f5f5f7")
-      $("#whole").css("height","auto")
-      console.log('{{community.1.title}}')      
-    })
+  {% endblock %} {% block script %}
+  <script type="text/javascript">
+         // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+
+            $(function() {
+              // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+              $("#whole").css("background-color","#f5f5f7")
+              $("#whole").css("height","auto")
+              console.log('{{community.1.title}}')
+            })
+
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("myBtn");
+
+
+
+          btn.onclick = function() {
+            modal.style.display = "block";
+          }
+
+          {% comment %} window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          } {% endcomment %}
+
+
+
+          /* 글자수세기 */
+    let textArea = document.getElementById("pop_textbox");
+    let characterCounter = document.getElementById("charCount");
+    const maxNumOfChars = 200;
+
+    const countCharacters = () => {
+        let numOfEnteredChars = textArea.value.length;
+        counter = numOfEnteredChars;
+        characterCounter.textContent = numOfEnteredChars + "/200";
+
+        if (counter>180) {
+          characterCounter.style.color="red";
+        }
+    }
+
+    textArea.addEventListener("input", countCharacters);
+
+
+    function auto_grow(element) {
+        element.style.height = "5px";
+        element.style.height =(element.scrollHeight)+"px";
+    }
+
   </script>
-{% endblock %}
+  {% endblock %}
+</div>
