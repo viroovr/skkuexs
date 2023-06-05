@@ -173,3 +173,35 @@ def etc_pre(request, school_name):
 		'country': report.user_country
     }
 	return render(request,'forums/etc_pre.html', context)
+
+def etc_uni(request, school_name):
+   # report_list = Report.objects.filter(user_university=school_name).exclude(etc_uni__exact='').order_by('-???')
+
+   # etc_uni = []
+   # # unilife_info=[]
+
+   # update_date = Report.objects.filter(user_university=school_name).exclude(etc_uni__exact='').aggregate(Max('???'))
+
+
+   # for report in report_list:
+   #    etc_uni.append({ 'rank': report.rank,
+   #                   'date': report.user_duration,
+   #                   'content': report.etc_feel
+   #                   })
+   context = {
+        'school_name': school_name,
+      'etc_uni_list': [],
+      # 'unilife_info': [{
+      #       'content': report.pre_etc,
+      #       'date': report.user_duration,
+      #    }
+      #    for report in report_list],
+      # 'update_date': update_date,
+      # 'country': report.user_country,
+      'tip': ["학교 시내 무어마켓에서 저렴하게 식자재 구입이 가능합니다",
+     "학생증으로 할인 받을 수 있는 품목(쇼핑, 교통 등)이 많습니다",
+     "학교 기숙사 주관으로 열리는 다양한 무료행사들이 많습니다",
+     "학기초 열리는 동아리 Fair에서 들어볼 동아리 선택할 수 있어요, Give it A Go라는 1회 체험 프로그램도 있답니다"]
+    }
+   
+   return render(request, 'forums/etc_uni.html', context)
