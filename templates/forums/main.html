@@ -8,7 +8,7 @@
   </div>
 
   <div class=introduction><span class="a2title">한줄소개</span>
-    <span class="a2text">{{introduction}}
+    <span class="a2text" id="introduction">{{introduction}}
     </span>
   </div>
 
@@ -111,9 +111,9 @@
   $(function() {
     // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
     // $("#whole").css("background-color","#fff")
-
-    console.log('{{school_name}}')
-    console.log('{{rank}}')
+    if('{{introduction}}'.length > 60) {
+      $('#introduction').css('font-size','1.35rem')
+    }
   })
 </script>
 {% endblock %}
