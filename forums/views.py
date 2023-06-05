@@ -3,14 +3,42 @@ from django.shortcuts import render
 from django.db.models import Max
 from common.views import community_profile_required
 from .models import Report, Article
-
+import requests
 from statistics import mean
+from django.conf import settings
+
+SEARHCH_ENGINE_API_KEY = getattr(settings, 'SEARCH_ENGINE_API_KEY')
+SEARCH_ENGINE = getattr(settings, 'SEARCH_ENGINE')
+
+def search_google_images(keyword):
+	url = 'https://www.googleapis.com/customsearch/v1'
+	params = {
+		'key': SEARHCH_ENGINE_API_KEY,
+		"cx": SEARCH_ENGINE,
+		'tbm': 'isch',  # 이미지 검색 모드로 설정
+		'q': keyword + " landmarks",  # 검색할 키워드]
+		'searchType': 'image'
+	}
+	# print(SEARHCH_ENGINE_API_KEY)
+	response = requests.get(url, params=params)
+	# print(response.json())
+	if response.status_code == 200:
+		pages = response.json()['items']
+		# print(pages)
+		image_srcs = []
+		for page in pages:
+			if 'link' in page:
+				image_srcs.append(page['link'])
+
+		return image_srcs[:3]
+	else:
+		print('Request failed with status code:', response.status_code)
+
 
 def main(request, school_name):
 	report_list = Report.objects.filter(university=school_name)
 	if not report_list:
 		return render(request, 'forums/empty.html', { 'school_name': school_name })
-
 	report = report_list[0]
 	context = {
 		'school_name': school_name,
@@ -18,6 +46,7 @@ def main(request, school_name):
 		'introduction': report.introduction,
 		'wordCloudUrl':report.word_cloud_url,
 		'rank': mean(report.satisfaction for report in report_list),
+        'image_urls': search_google_images(school_name)
 	}
 	return render(request, 'forums/main.html', context)
 
@@ -114,7 +143,7 @@ def visa(request, school_name):
 		'country_code': report.country_code,
         'update_date': update_date
     }
-    return render(request, 'forums/visa.html', context)
+	return render(request, 'forums/visa.html', context)
 
 
 def dorm(request, school_name):
@@ -136,7 +165,7 @@ def dorm(request, school_name):
         'update_date': update_date,
 		'country': report.country
     }
-    return render(request, 'forums/dorm.html', context)
+	return render(request, 'forums/dorm.html', context)
 
 
 def etc_pre(request, school_name):
@@ -157,7 +186,7 @@ def etc_pre(request, school_name):
 		'update_date': update_date,
 		'country': report.country
     }
-    return render(request, 'forums/etc_pre.html', context)
+	return render(request, 'forums/etc_pre.html', context)
 
 def etc_uni(request, school_name):
 	# report_list = Report.objects.filter(university=school_name).exclude(etc_uni__exact='').order_by('-???')
