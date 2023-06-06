@@ -16,7 +16,7 @@
             학교가는법
           </div>
           {% comment %} <div class="uni_map"> {% endcomment %}
-            <div id="map" style="width: 400px; height: 400px;"></div>
+            <div id="map" style="width: 500px; height: 500px;"></div>
             {% comment %} <iframe  src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d1243936.6144630748!2d-2.1289532505962874!3d52.48703496665936!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e3!4m5!1s0x48767234cdc56de9%3A0x8fe7535543f64167!2sHeathrow%20Airport%20(LHR)%2C%20Longford%20TW6%2C%20United%20Kingdom!3m2!1d51.4700223!2d-0.45429549999999996!4m5!1s0x4879827871f2884f%3A0xc9ec1e8b34c33663!2sSheffield%20Uni%2C%20Sheffield%2C%20UK!3m2!1d53.3813502!2d-1.4884229!5e0!3m2!1sen!2skr!4v1685938148044!5m2!1sen!2skr" width= "400"
             height= "400"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> {% endcomment %}
           
@@ -64,15 +64,32 @@
         L.mapquest.key = 'L1A26MLco5nVqWyuHaTGjuOjqppkxLeo';
 
         // 'map' refers to a <div> element with the ID map
+          function createMap(error, response) {
           var map = L.mapquest.map('map', {
             center: [latitude, longitude],
             layers: L.mapquest.tileLayer('map'),
             zoom: 13
           });
+          var directionsLayer = L.mapquest.directionsLayer({
+            directionsResponse: response,
+            paddingBottomRight: [-100, -100]
+          }).addTo(map);
+        
+          var narrativeControl = L.mapquest.narrativeControl({
+            directionsResponse: response,
+            compactResults: true,
+            interactive: true
+          });
+          narrativeControl.setDirectionsLayer(directionsLayer);
+          narrativeControl.addTo(map);
+        }
           L.mapquest.directions().route({
           start: latitude + ',' + longitude,
-          end: airportLat + ',' + airportLng
-          }); 
+          end: airportLat + ',' + airportLng,
+          options: {
+            enhancedNarrative: true
+          }
+          }, createMap); 
       }
     </script>
 <script type="text/javascript"> // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법

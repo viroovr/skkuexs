@@ -216,39 +216,44 @@ def search_airport_nearby(school_name):
     }
     response = requests.get(geocoding_url, params=params)
     data = response.json()
+    # print(data)
     if 'results' in data and len(data['results']) > 0:
         # 학교의 위도와 경도 추출
         latitude = data['results'][0]['geometry']['lat']
         longitude = data['results'][0]['geometry']['lng']
         country_code = data['results'][0]['components']['country_code']
+        # country_name = data['results'][0]['components']['country']
         airport_code_url = f"https://airlabs.co/api/v9/airports?country_code={country_code}&api_key={AIRLAB_API_KEY}"
         response = requests.get(airport_code_url)
+        # print(country_name)
         # print(country_code)
-        # print(response.json())
+        data = response.json()['response']
+        # print(data)
         # print(response.json()['response'][0]['iata_code'])
-        iata_code = response.json()['response'][0]['iata_code']
+        iata_code =[(item['lat'],item['lng']) for item in data if 'iata_code' in item] 
         # print(iata_code) 
         # 주변 항공 검색
-        airport_search_api_url = 'https://api.opencagedata.com/geocode/v1/json'
-        airport_search_params = {
-            'q': f'{school_name}, {iata_code}',
-            'limit': 5,  # 주변 항공 중 최대 5개 검색
-            'proximity': f'{latitude},{longitude}',
-            'no_annotations': 1,
-            'key': geocoding_api_key
-        }
-        airport_response = requests.get(airport_search_api_url, params=airport_search_params)
-        airport_data = airport_response.json()
+        # airport_search_api_url = 'https://api.opencagedata.com/geocode/v1/json'
+        # airport_search_params = {
+        #     'q': f'{iata_code}',
+        #     'limit': 5,  # 주변 항공 중 최대 5개 검색
+        #     'proximity': f'{latitude},{longitude}',
+        #     'no_annotations': 1,
+        #     'key': geocoding_api_key,
+        #     'countrycode': country_code
+        # }
+        # airport_response = requests.get(airport_search_api_url, params=airport_search_params)
+        # airport_data = airport_response.json()['results']
         # print(airport_data)
 		
-        if 'results' in airport_data:
+        if iata_code:
             # airports = []
             nearest_airport = None
             shortest_distance = None
-            for result in airport_data['results']:
+            for result in iata_code:
 				
-                airport_lat = result['geometry']['lat']
-                airport_lng = result['geometry']['lng']
+                airport_lat = result[0]
+                airport_lng = result[1]
                 distance = geodesic((latitude, longitude), (airport_lat, airport_lng)).km
                 
                 if shortest_distance is None or distance < shortest_distance:
