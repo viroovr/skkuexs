@@ -76,6 +76,8 @@ def courses(request, school_name):
 	courses = []
 	for report in report_list:
 		course_name.append(report.course_name)
+		if(report.course_etc == ""):
+			continue
 		courses.append({'rank': report.satisfaction,
 		  				'title': report.course_num,
 						'date': report.semester,
@@ -90,13 +92,14 @@ def courses(request, school_name):
 	return render(request, 'forums/courses.html', context)
 
 def uni_review(request, school_name):
-	report_list = Report.objects.filter(university=school_name)
+	report_list = Report.objects.filter(university=school_name).order_by("-semester")
 
 	uni_review = []
 	for report in report_list:
 		uni_review.append({ 'rank': report.satisfaction,
 							'date': report.semester,
-							'photo': ['/static/images/Harvard2.jpg'],
+							# 'photo': ['/static/images/Harvard2.jpg'],
+							'photo': "",
 							'photo_num': 1,
 							'content': report.impression
 							})
@@ -106,8 +109,6 @@ def uni_review(request, school_name):
 		'country': report_list[0].country if report_list else 'South Korea'
 	}
 	return render(request, 'forums/uni_review.html', context)
-
-from django.http import HttpResponse 
 
 @community_profile_required
 def community(request, school_name):

@@ -11,6 +11,7 @@
       <div class="review_column">
         {% comment %} {% for field in uni_review|half_length_slice%} {% endcomment %}
         {% for field in uni_review%}
+        {% if forloop.counter|add:1|divisibleby:2 %}
         <div class="review_item_box">
           <div class="uni_review_top">
             <div class="course_item_rank">
@@ -29,35 +30,38 @@
           </div>
           <div class="review_item_content">{{field.content}}</div>
         </div>
-        {% endfor %}
+      {% endif %}
+      {% endfor %}
       </div>
      
 
-        <div class="review_column">
-          {% for field in uni_review %}
-          <div class="review_item_box">
-            <div class="uni_review_top">
-              <div class="course_item_rank">
-                {% for i in "x"|rjust:field.rank %}
-                <div class="star" id="star10"></div>
-                {% endfor %}
-              </div>
-              <div class="review_item_date">{{field.date}}</div>
-            </div>
-
-            
-
-            <div class="review_photos">
-              {% for image in field.photo %}
-              <div class ="aaa">
-              <img class="review_photo" src={{image|safe}}   >
-              </div>
+      <div class="review_column">
+        {% for field in uni_review %}
+        {% if forloop.counter|divisibleby:2 %}
+        <div class="review_item_box">
+          <div class="uni_review_top">
+            <div class="course_item_rank">
+              {% for i in "x"|rjust:field.rank %}
+              <div class="star" id="star10"></div>
               {% endfor %}
             </div>
-            <div class="review_item_content">{{field.content}}</div>
+            <div class="review_item_date">{{field.date}}</div>
           </div>
-          {% endfor %}
+
+          
+
+          <div class="review_photos">
+            {% for image in field.photo %}
+            <div class ="aaa">
+            <img class="review_photo" src={{image|safe}}   >
+            </div>
+            {% endfor %}
+          </div>
+          <div class="review_item_content">{{field.content}}</div>
         </div>
+        {% endif %}
+        {% endfor %}
+      </div>
           
 
 
