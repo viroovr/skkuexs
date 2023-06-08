@@ -52,8 +52,8 @@
 
 
     <div class="community_search_box">
-      <input type="text" class="community_search" placeholder="검색어 입력" />
-      <div class="community_search_icon_box">
+      <input type="text" class="community_search" placeholder="검색어 입력" id="search_box"/>
+      <div class="community_search_icon_box" id="search_icon">
         <img
           class="community_search_icon"
           src="/static/images/search_icon.png"
@@ -183,7 +183,6 @@
     
 
     window.addEventListener("click",function(event) {
-      console.log(event.target.className)
       if(event.target.className == "modal2" || event.target.className == "popButton close") {
         $(".modal2").css("display","none")
       }
@@ -209,6 +208,15 @@
     function auto_grow(element) {
         element.style.height = "5px";
         element.style.height = (element.scrollHeight) + "px";
+    }
+
+    $("#search_icon").click(function(){
+      var query = $("#search_box").val()
+      location.href = "?query="+query
+    })
+
+    if('{{query}}' != "") {
+      $("#search_box").attr('value','{{query}}')
     }
 
   })

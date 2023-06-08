@@ -140,8 +140,19 @@ def community(request, school_name):
 
 	article_list = Article.objects.filter(university=school_name)
 	community = []
+
+	query = ""
+	try:
+		query = request.GET["query"]
+	except:
+		pass
+
 	for article in article_list:
-		community.append({ 'title': article.title,
+		if(query != ""):
+			if(article.title.find(query) == -1 and article.content.find(query) == -1):
+				continue
+		community.append({ 'title_15': article.title if len(article.title) < 16 else article.title[:15]+"...",
+		    				'title': article.title,
 							'content_15': article.content if len(article.content) < 16 else article.content[:15]+"...",
 							'content': article.content,
 							'date': article.date.date,
@@ -149,11 +160,25 @@ def community(request, school_name):
 							'comment': article.comment.all(),
 							'article': article
 							})
+	if(len(community) % 3 != 0):
+		for i in range(3 - (len(community) % 3)):
+			community.append({
+				'title_15': "!hidden",
+				'title': "!hidden",
+				'content_15': "",
+				'content': "",
+				'date': "",
+				'recommand': "",
+				'comment': "",
+			})	
+
+	
 	report_list = Report.objects.filter(university=school_name)
 	context = {
 		'school_name': school_name,
 		'community': community,
-		'country': report_list[0].country if report_list else 'South Korea'
+		'country': report_list[0].country if report_list else 'South Korea',
+		'query': query,
 	}
 	return render(request, 'forums/community.html', context)
 
@@ -323,7 +348,7 @@ def etc_uni(request, school_name):
 			
 	# print(airport_latitude, airport_longitude)
 
-	report_list = Report.objects.filter(university=school_name).exclude(leisure='').order_by('-semester')[:5]
+	report_list = Report.objects.filter(university=school_name).exclude(leisure='').order_by('-semester')
 	tip = []
 	for report in report_list:
 		tip.append(report.leisure)
