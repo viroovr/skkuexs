@@ -34,6 +34,21 @@
 	top:5.5625rem;
 
 }
+
+.logout {
+	position: absolute;
+	right:9.5rem;
+	top:0.3rem;
+
+	font-family: 'Inter', sans-serif;
+	font-weight : 200;
+}
+
+.logimg {
+	width: 2.5rem;
+	height: 2.5rem;
+}
+
 .area2 { 
 	width:73.4375rem;
 	height:2.9375rem;

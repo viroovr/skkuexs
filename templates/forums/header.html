@@ -1,4 +1,11 @@
-<div class=header><span class="skkuexs">SKKUEXS</span>
+{% load static %}
+<div class=header><span class="skkuexs">SKKUEXS</span><div class="logout">
+    {% if user.is_authenticated %}
+    <a href="{% url 'common:logout' %}" style="text-decoration: none; color: black"><img class='logimg' src="{% static 'images/logout.png' %}"></a>
+    {% else %}
+    <a href="{% url 'common:login' %}" style="text-decoration: none; color: black"><img class='logimg' src="{% static 'images/login.png' %}"></a>
+    {% endif %}
+</div>
     <div class=area1a>
         <!-- <div class="uniname">University of Samsung </div> -->
         <div class="uniname">{{ school_name }}</div>
