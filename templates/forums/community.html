@@ -109,23 +109,17 @@
 						  <button class="popButton comment_btn" type="submit">댓글적기</button>
 						</div>
 					</form>
-                    <div class="comments_list">
-                      <div class="comment_box">
-                        <div class="comment_box_head">
-                        <div class="comment_writer">작성자 아이디</div>
-                        <div class="comment_date">작성일자 2023.06.07</div>
-                        </div>
-                        <div class="comment_content">작성내용 / 저는 7월 중순으로 했어요. 다른 나라들 구경도 하고 갈겸 미리 가서 학교도 둘러볼겸 겸사겸사요! 유럽은 여름에 여행하는게 날씨가 좋다고 해서..근데 가격 생각하면 여름이 성수기라 조금 나중에 8월 말~9월이 나을수도 있어요!</div>
-                      </div>
 
+					<div class="comments_list">
+					{% for comment in field.comment %}
                       <div class="comment_box">
                         <div class="comment_box_head">
-                        <div class="comment_writer">작성자 아이디2</div>
-                        <div class="comment_date">작성일자 2023.06.07</div>
+                        <div class="comment_writer">{{comment.user}}</div>
+                        <div class="comment_date">{{comment.date}}</div>
                         </div>
-                        <div class="comment_content">작성내용 / 저는 7월 중순으로 했어요. 다른 나라들 구경도 하고 갈겸 미리 가서 학교도 둘러볼겸 겸사겸사요! 유럽은 여름에 여행하는게 날씨가 좋다고 해서..</div>
+                        <div class="comment_content">{{comment.content}}</div>
                       </div>
-                      
+					{% endfor %}                      
                     </div>
                     <div class="pop2_bottom">
                       <div class="pop2_bottom_btn">
