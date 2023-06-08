@@ -74,7 +74,7 @@
       <div class="community_item_box" id = "community_btn">
         {% endif %}
         <div class="community_item_title">{{field.title}}</div>
-        <div class="community_item_content">{{field.content}}</div>
+        <div class="community_item_content">{{field.content_15}}</div>
         <div class="community_item_below">
           <div class="community_item_date">{{field.date}}</div>
           <div class="community_item_below_fill"></div>
@@ -95,8 +95,8 @@
                 >{{field.content}}</div>
                 
                 
-                  <hr class="popform_divider" />
-                  <div class="comment_area">
+                <hr class="popform_divider" />
+                <div class="comment_area">
                     <div class="comment_header">
                       <div class="comment_word">댓글</div>
                       <div class="comment_num">17(num)</div>
@@ -122,15 +122,14 @@
                         <div class="comment_content">작성내용 / 저는 7월 중순으로 했어요. 다른 나라들 구경도 하고 갈겸 미리 가서 학교도 둘러볼겸 겸사겸사요! 유럽은 여름에 여행하는게 날씨가 좋다고 해서..</div>
                       </div>
                       
-                  </div>
-                  <div class="pop2_bottom">
-                    <div class="pop2_bottom_btn">
-                      
-                  <span class="popButton close" onclick="document.getElementById('myModal2').style.display='none'" type="submit">닫기</span>
+                    </div>
+                    <div class="pop2_bottom">
+                      <div class="pop2_bottom_btn">
+                        
+                      <span class="popButton close">닫기</span>
                     </div>
                 </div>
               </div>
-            
           </div>
         </div>
       </div>
@@ -143,47 +142,56 @@
     </div>
     {% endif %} {% endfor %}
   </div>
-  {% endblock %} {% block script %}
-
-
+</div>
+{% endblock %} 
   
-  <script type="text/javascript">
-         // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  
+{% block script %}
+<script type="text/javascript">
+  // 스크립트 내부에서 템플릿 변수를 사용하기 위한 방법
+  $(function() {
+    // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
+    $("#whole").css("background-color","#f5f5f7")
+    $("#whole").css("height","auto")
 
-            $(function() {
-              // base_for_forums의 색은 아래와 같은 방식으로 변경할 수 있음
-              $("#whole").css("background-color","#f5f5f7")
-              $("#whole").css("height","auto")
-            })
-
-        var modal = document.getElementById("myModal");
-        var modal2 = document.getElementById("myModal2");
-        var btn = document.getElementById("myBtn");
-        var btn2 = document.getElementById("community_btn");
+    var modal = document.getElementById("myModal");
+    // var modal2 = document.getElementById("myModal2");
+    var btn = document.getElementById("myBtn");
+    var btn2 = document.getElementById("community_btn");
         
-          btn.onclick = function() {
-            modal.style.display = "block";
-          }
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
 
-          btn2.onclick = function() {
-            modal2.style.display = "block";
-          }
+    // btn2.onclick = function() {
+    //   modal2.style.display = "block";
+    // }
 
-         window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-            }
-          } 
+    $(".community_item_box").click(function(event) {
+      $(event.target).children(".modal2").css("display","block")
+    })
+    $(".community_item_title").click(function(event) {
+      $(event.target).parent().children(".modal2").css("display","block")
+    })
+    $(".community_item_content").click(function(event) {
+      $(event.target).parent().children(".modal2").css("display","block")
+    })
+    
 
-          window.onclick = function(event) {
-            if (event.target == modal2) {
-              modal2.style.display = "none";
-            }
-          } 
+    $(".popButton").click(function() {
+      $(".popButton").parent().parent().parent().parent().css("display","none")
+    })
 
+    window.addEventListener("click",function(event) {
+      if(event.target.className == "modal2") {
+        $(".modal2").css("display","none")
+      }
+      if(event.target.className == "modal") {
+        $(".modal").css("display","none")
+      }
+    })
 
-
-          /* 글자수세기 */
+    /* 글자수세기 */
     let textArea = document.getElementById("pop_textbox");
     let characterCounter = document.getElementById("charCount");
     const maxNumOfChars = 200;
@@ -192,7 +200,7 @@
         let numOfEnteredChars = textArea.value.length;
         counter = numOfEnteredChars;
         characterCounter.textContent = numOfEnteredChars + "/200";
-		characterCounter.style.color = counter > 180 ? "red" : "black";
+    characterCounter.style.color = counter > 180 ? "red" : "black";
     }
 
     textArea.addEventListener("input", countCharacters);
@@ -202,6 +210,6 @@
         element.style.height = (element.scrollHeight) + "px";
     }
 
-  </script>
-  {% endblock %}
-</div>
+  })
+</script>
+{% endblock %}
