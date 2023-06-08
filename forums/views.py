@@ -307,16 +307,19 @@ def etc_uni(request, school_name):
 	# 		# 위도(latitude)와 경도(longitude)를 사용하여 필요한 작업 수행
 			
 	# print(airport_latitude, airport_longitude)
+
+	report_list = Report.objects.filter(university=school_name).exclude(leisure='').order_by('-semester')[:5]
+	tip = []
+	for report in report_list:
+		tip.append(report.leisure)
+
+	update_date = Report.objects.filter(university=school_name).exclude(leisure='').aggregate(Max('semester'))
+	report = report_list[0]
+
 	context = {
 		'school_name': school_name,
-		'etc_uni_list': [],
-		'tip': [
-				"학교 시내 무어마켓에서 저렴하게 식자재 구입이 가능합니다",
-				"학생증으로 할인 받을 수 있는 품목(쇼핑, 교통 등)이 많습니다",
-				"학교 기숙사 주관으로 열리는 다양한 무료행사들이 많습니다",
-				"학기초 열리는 동아리 Fair에서 들어볼 동아리 선택할 수 있어요",
-				"Give it A Go라는 1회 체험 프로그램도 있답니다"
-		],
+		# 'etc_uni_list': [],
+		'tip': tip,
 		"school_latitude": latitude, 
 		"school_longitude": longitude,
 		"airport_lat": airport_lat, 
@@ -327,7 +330,7 @@ def etc_uni(request, school_name):
 		#       'date': report.semester,
 		#    }
 		#    for report in report_list],
-		# 'update_date': update_date,
-		# 'country': report.user_country,
+		'update_date': update_date,
+		'country': report.country,
 	}
 	return render(request, 'forums/etc_uni.html', context)
