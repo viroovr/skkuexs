@@ -136,7 +136,7 @@ def community(request, school_name):
 			article.save()
 		return HttpResponseRedirect(reverse("forums:community", args=(school_name,)))
 
-	article_list = Article.objects.filter(university=school_name)
+	article_list = Article.objects.filter(university=school_name).order_by("-date")
 	community = []
 
 	query = ""
