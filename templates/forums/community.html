@@ -41,7 +41,7 @@
                   <div class="pop_bottom_btn">
                 <span id="charCount">0/200</span>
                 <button class="popButton" type="submit">등록</button>
-                <button class="popButton close" type="submit">취소</button>
+                <button class="popButton close" type="button">취소</button>
                   </div>
               </div>
             </div>
@@ -174,15 +174,15 @@
     $(".community_item_content").click(function(event) {
       $(event.target).parent().children(".modal2").css("display","block")
     })
-    
 
-    window.addEventListener("click",function(event) {
-      if(event.target.className == "modal2" || event.target.className == "popButton close") {
-        $(".modal2").css("display","none")
-      }
-      if(event.target.className == "modal") {
-        $(".modal").css("display","none")
-      }
+	window.addEventListener("click",function(event) {
+		console.log(event.target.className)
+		if(event.target.className == "modal2" || event.target.className == "popButton close") {
+			$(".modal2").css("display","none")
+      	}
+	    if(event.target.className == "modal" || event.target.className == "popButton close") {
+        	$(".modal").css("display","none")
+    	}
     })
 
     /* 글자수세기 */
