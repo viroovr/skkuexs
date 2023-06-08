@@ -51,7 +51,7 @@ def main(request, school_name):
 		'introduction': report.introduction,
 		'wordCloudUrl':report.word_cloud_url,
 		'rank': mean(report.satisfaction for report in report_list),
-        'image_urls': "" #돈나갈까봐 잠시 꺼둠 / search_google_images(school_name)
+        'image_urls': search_google_images(school_name)
 	}
 	return render(request, 'forums/main.html', context)
 
