@@ -115,10 +115,8 @@ def uni_review(request, school_name):
 @community_profile_required
 def community(request, school_name):
 	if request.method == 'POST':
-		article_id = 10
-		print(dict(request.POST))
 		if "comment" in request.POST:
-			article = get_object_or_404(Article, pk=article_id)
+			article = get_object_or_404(Article, pk=request.POST['article_id'])
 			comment = Comment(
 								user=request.user,
 								article=article,

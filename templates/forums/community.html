@@ -105,8 +105,7 @@
 						{% csrf_token %}
 						<div class="comment_write">
 						  <textarea name="comment" id="pop_textbox3" placeholder="댓글을 작성해주세요" maxlength="300"></textarea>
-						  <!-- <div name="article_id" style="visibility:hidden">{{field.article.id}}</div> -->
-              <input name="article_id" value="{{field.article.id}}" style="visibility: hidden;"/>
+			              <input name="article_id" value="{{field.article.id}}" style="visibility: hidden;"/>
 						  <button class="popButton comment_btn" type="submit">댓글적기</button>
 						</div>
 					</form>
