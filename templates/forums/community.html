@@ -81,7 +81,7 @@
           <img src="/static/images/Facebook Like.png" />
           <div class="community_item_below_count">{{field.recommand}}</div>
           <img src="/static/images/Comments.png" />
-          <div class="community_item_below_count">{{field.comment}}</div>
+          <div class="community_item_below_count">{{field.comment.count}}</div>
         </div>
 
 
@@ -99,12 +99,16 @@
                 <div class="comment_area">
                     <div class="comment_header">
                       <div class="comment_word">댓글</div>
-                      <div class="comment_num">17(num)</div>
+                      <div class="comment_num">{{field.comment.count}}</div>
                     </div>
-                    <div class="comment_write">
-                      <textarea id="pop_textbox3" placeholder="댓글을 작성해주세요" maxlength="300"></textarea>
-                      <button class="popButton comment_btn" type="submit">댓글적기</button>
-                    </div>
+					<form method="post">
+						{% csrf_token %}
+						<div class="comment_write">
+						  <textarea name="comment" id="pop_textbox3" placeholder="댓글을 작성해주세요" maxlength="300"></textarea>
+						  <div name="article_id" style="visibility:hidden">{{field.article.id}}</div>
+						  <button class="popButton comment_btn" type="submit">댓글적기</button>
+						</div>
+					</form>
                     <div class="comments_list">
                       <div class="comment_box">
                         <div class="comment_box_head">

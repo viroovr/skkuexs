@@ -1,8 +1,8 @@
 from django.db.models import Count
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Max
 from common.views import community_profile_required
-from .models import Report, Article
+from .models import Report, Article, Comment
 import requests
 from statistics import mean
 from django.conf import settings
@@ -115,16 +115,25 @@ def uni_review(request, school_name):
 @community_profile_required
 def community(request, school_name):
 	if request.method == 'POST':
-		print("i am post")
-		if request.POST['community_title'] and request.POST['community_article']:
+		article_id = 10
+		print(dict(request.POST))
+		if "comment" in request.POST:
+			article = get_object_or_404(Article, pk=article_id)
+			comment = Comment(
+								user=request.user,
+								article=article,
+								content=request.POST['comment'],
+								date=timezone.now()
+							)
+			comment.save()
+		elif 'community_title' in request.POST and 'community_article' in request.POST:
 			article = Article(
-								author=request.user,
+								user=request.user,
 								university=school_name,
 								title=request.POST['community_title'],
 								content=request.POST['community_article'],
 								date=timezone.now(),
-								recommand=0,
-								comment=""
+								recommand=0
 							)
 			article.save()
 		return HttpResponseRedirect(reverse("forums:community", args=(school_name,)))
@@ -137,7 +146,8 @@ def community(request, school_name):
 							'content': article.content,
 							'date': article.date.date,
 							'recommand': article.recommand,
-							'comment': article.comment
+							'comment': article.comment.all(),
+							'article': article
 							})
 	report_list = Report.objects.filter(university=school_name)
 	context = {
