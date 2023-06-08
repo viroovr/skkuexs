@@ -129,7 +129,7 @@ def community(request, school_name):
 	community = []
 	for article in article_list:
 		community.append({ 'title': article.title,
-							'content': article.content,
+							'content': article.content if len(article.content) < 16 else article.content[:15]+"...",
 							'date': article.date.date,
 							'recommand': article.recommand,
 							'comment': article.comment
