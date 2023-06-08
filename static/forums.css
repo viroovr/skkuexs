@@ -261,6 +261,7 @@
     width : 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .uni_review_top{
@@ -318,10 +319,10 @@
 
   .course_item_title{
 
-        width: 12.25rem;
+        width: 100%;
         height: 1.438rem;
         flex-grow: 0;
-        margin: 1.244rem 9.75rem 1.25rem 0;
+        margin: 1.244rem 0rem 1.25rem 0;
         font-family: Inter;
         font-size: 1.75rem;
         font-weight: 600;
@@ -329,15 +330,15 @@
         font-style: normal;
         line-height: normal;
         letter-spacing: -0.56px;
-        text-align: left;
+        /* text-align: left; */
         color: #000;
   }
 
   .course_item_date{
 
-        width: 8.375rem;
+        /* width: 8.375rem; */
         height: 1.375rem;
-        flex-grow: 0;
+        /* flex-grow: 0; */
         margin: auto;
         font-family: "Noto Sans KR";
         font-size: 1.125rem;
@@ -347,7 +348,7 @@
         line-height: normal;
         letter-spacing: -0.72px;
         white-space: nowrap;
-        text-align: right;
+        /* text-align: right; */
         color: #868686;
       }
 

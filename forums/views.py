@@ -79,7 +79,7 @@ def courses(request, school_name):
 		if(report.course_etc == ""):
 			continue
 		courses.append({'rank': report.satisfaction,
-		  				'title': report.course_num,
+		  				'title': report.department,
 						'date': report.semester,
 						'content': report.course_etc
 						})
