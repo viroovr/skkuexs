@@ -7,6 +7,8 @@ import requests
 from statistics import mean
 from django.conf import settings
 from django.utils import timezone
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 SEARHCH_ENGINE_API_KEY = getattr(settings, 'SEARCH_ENGINE_API_KEY')
 OPENCAGE_API_KEY = getattr(settings, 'OPENCAGE_API_KEY')
@@ -113,6 +115,7 @@ def uni_review(request, school_name):
 @community_profile_required
 def community(request, school_name):
 	if request.method == 'POST':
+		print("i am post")
 		if request.POST['community_title'] and request.POST['community_article']:
 			article = Article(
 								author=request.user,
@@ -124,8 +127,9 @@ def community(request, school_name):
 								comment=""
 							)
 			article.save()
-	article_list = Article.objects.filter(university=school_name)
+		return HttpResponseRedirect(reverse("forums:community", args=(school_name,)))
 
+	article_list = Article.objects.filter(university=school_name)
 	community = []
 	for article in article_list:
 		community.append({ 'title': article.title,
