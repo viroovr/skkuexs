@@ -78,8 +78,8 @@
         <div class="community_item_below">
           <div class="community_item_date">{{field.date}}</div>
           <div class="community_item_below_fill"></div>
-          <img src="/static/images/Facebook Like.png" />
-          <div class="community_item_below_count">{{field.recommand}}</div>
+          <!-- <img src="/static/images/Facebook Like.png" id="like-{{field.article.id}}_0" name="like"/>
+          <div class="community_item_below_count" id="like_count-{{field.article.id}}_0" name="like_count">{{field.recommand}}</div> -->
           <img src="/static/images/Comments.png" />
           <div class="community_item_below_count">{{field.comment.count}}</div>
         </div>
@@ -93,7 +93,15 @@
                   id="pop_textbox2"
                   oninput="auto_grow(this)"
                 >{{field.content}}</div>
-                
+
+				<div class="community_item_below">
+					<div class="community_item_date">{{field.date}}</div>
+					<div class="community_item_below_fill"></div>
+					<!-- <img src="/static/images/Facebook Like.png" id="like-{{field.article.id}}_1" name="like"/>
+					<div class="community_item_below_count" id="like_count-{{field.article.id}}_1" name="like_count">{{field.recommand}}</div> -->
+					<img src="/static/images/Comments.png" />
+					<div class="community_item_below_count">{{field.comment.count}}</div>
+				  </div>                
                 
                 <hr class="popform_divider" />
                 <div class="comment_area">
@@ -114,8 +122,8 @@
 					{% for comment in field.comment %}
                       <div class="comment_box">
                         <div class="comment_box_head">
-                        <div class="comment_writer">{{comment.user}}</div>
-                        <div class="comment_date">{{comment.date}}</div>
+							<div class="comment_writer">{{comment.user}}</div>
+							<div class="comment_date">{{comment.date}}</div>
                         </div>
                         <div class="comment_content">{{comment.content}}</div>
                       </div>
@@ -152,6 +160,13 @@
     $("#whole").css("background-color","#f5f5f7")
     $("#whole").css("height","auto")
 
+	// var like = document.getElementsByName("like")
+	// like.forEach(function(value, key) {
+	// 	value.addEventListener("click", function() {
+	// 		console.log(value.id)
+	// 	})
+	// })
+
     var modal = document.getElementById("myModal");
     // var modal2 = document.getElementById("myModal2");
     var btn = document.getElementById("myBtn");
@@ -176,7 +191,6 @@
     })
 
 	window.addEventListener("click",function(event) {
-		console.log(event.target.className)
 		if(event.target.className == "modal2" || event.target.className == "popButton close") {
 			$(".modal2").css("display","none")
       	}
@@ -212,7 +226,6 @@
     if('{{query}}' != "") {
       $("#search_box").attr('value','{{query}}')
     }
-
   })
 </script>
 {% endblock %}

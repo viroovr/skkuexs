@@ -125,7 +125,6 @@ def community(request, school_name):
 							)
 			comment.save()
 		elif request.POST['community_title'] and request.POST['community_article']:
-			print(dict(request.POST))
 			article = Article(
 								user=request.user,
 								university=school_name,
