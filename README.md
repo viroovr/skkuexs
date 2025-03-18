@@ -12,7 +12,6 @@
 **비자 & 기숙사 정보** – 비자 신청 및 숙소 선택 가이드 제공  
 **게시판 시스템** – 교환학생들이 직접 경험을 공유할 수 있는 공간  
 
----
 
 ## 2. 기술 스택  
 ### **프론트엔드 (Frontend)**  
@@ -29,7 +28,6 @@
 - **GPT-4** – AI 기반 콘텐츠 생성  
 - **WordCloud** – 키워드 시각화
 
----
 
 ## 3. 프로젝트 실행 방법  
 
@@ -55,15 +53,14 @@ python manage.py runserver
 
 🔗 웹사이트 접속: http://127.0.0.1:8000/
 
----
 
 ## 4. 시스템 구조
 SKKUEXS는 클라이언트-서버 아키텍처를 기반으로 하며,
 사용자는 웹 UI를 통해 정보를 얻고, Django 백엔드가 데이터 처리를 담당합니다.
 
-![image](https://github.com/user-attachments/assets/0a22b769-d7c3-4aae-a53b-bf41948ca306)
+![image](https://github.com/user-attachments/assets/60c15206-d255-47d1-9e23-16c0f180f44d)
 
----
+
 ## 5. 팀원 소개
 Team H (성균관대학교 캡스톤 프로젝트)
 
@@ -72,6 +69,5 @@ Team H (성균관대학교 캡스톤 프로젝트)
 서현원
 김주원
 
----
 
 
