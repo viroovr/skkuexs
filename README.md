@@ -31,7 +31,7 @@
 
 ## 3. 프로젝트 실행 방법  
 
-### **1️⃣ 설치 **  
+### **1️⃣ 설치**  
 ```bash
 https://github.com/viroovr/skkuexs.git
 cd SKKUEXS
